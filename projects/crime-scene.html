@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>범죄 현장 AI 기반 증거물 탐지·음성 명령·로봇 수집 시스템 — Jae Moon Hwang</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=5" />
+
+  <style>
+    .image-slot {
+      margin: 34px 0 42px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+      border: 1px solid #e7e7e7;
+      color: #999;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a href="../index.html" class="name">Jae Moon Hwang</a>
+
+    <nav class="top-links">
+      <a href="../assets/resume.pdf" target="_blank">Resume</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/jmoonxai" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="simple-project">
+    <div class="simple-container">
+
+      <section class="project-intro">
+        <p class="eyebrow">PROJECT TITLE</p>
+        <h1>범죄 현장 AI 기반 증거물 탐지·음성 명령·로봇 수집 시스템</h1>
+
+        <div class="meta-block">
+          <p class="eyebrow">TECHNOLOGIES</p>
+          <p class="meta-text">Robotics / Physical AI · Computer Vision · STT · ROS2 · Python</p>
+        </div>
+
+        <div class="meta-block">
+          <p class="eyebrow">ROLE</p>
+          <p class="meta-text">Vision / STT 담당</p>
+        </div>
+
+        <div class="meta-block project-summary">
+          <p class="eyebrow">PROJECT</p>
+          <p>
+            음성 명령을 기반으로 증거물을 탐지하고 객체의 3D 위치·방향을 추정해
+            로봇이 직접 수집하는 AI-Robotics 시스템
+          </p>
+        </div>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section class="content-section">
+        <h2>Overview</h2>
+
+        <p>
+          범죄 현장에서 사람이 직접 증거물을 탐색·수집할 때 발생할 수 있는 현장 훼손과
+          증거 오염을 줄이기 위해, <strong>음성 명령 → 객체 탐지 → 위치·방향 추정 → 로봇 수집</strong>으로
+          이어지는 End-to-End AI-Robotics 시스템을 구현했습니다.
+        </p>
+
+        <p>
+          Vision에서는 객체 탐지 결과를 Robot Grasp에 필요한
+          <strong>x, y, z, θ</strong> 정보로 확장하고,
+          STT에서는 자연어 명령을 Robot Control이 실행할 수 있는
+          Structured Command로 변환하는 Pipeline을 구축했습니다.
+        </p>
+      </section>
+
+      <!-- PROBLEM -->
+      <section class="content-section">
+        <h2>Problem</h2>
+
+        <figure class="project-figure image-slot">
+          <div class="image-placeholder">PROBLEM / SYSTEM OVERVIEW IMAGE</div>
+        </figure>
+
+        <p>
+          범죄 현장에서 사람이 직접 증거물을 탐색·수집할 때 발생할 수 있는 현장 훼손과
+          증거 오염을 줄이기 위해,
+          <strong>음성 명령을 기반으로 증거물을 탐지하고 로봇이 수집하는 AI-Robotics 시스템</strong>을 구현했습니다.
+        </p>
+
+        <p>
+          이를 위해 Vision에서는 객체 인식을
+          <strong>Robot Grasp가 가능한 위치·방향 정보</strong>로 변환하고,
+          STT에서는 자연어를
+          <strong>Robot Control이 실행 가능한 구조화된 명령</strong>으로 변환해야 했습니다.
+        </p>
+      </section>
+
+      <!-- ANALYZE -->
+      <section class="content-section">
+        <h2>Analyze</h2>
+
+        <div class="text-group">
+          <h3>Vision</h3>
+
+          <figure class="project-figure image-slot">
+            <div class="image-placeholder">VISION ERROR ANALYSIS IMAGE 01</div>
+          </figure>
+
+          <figure class="project-figure image-slot">
+            <div class="image-placeholder">VISION ERROR ANALYSIS IMAGE 02</div>
+          </figure>
+
+          <p>
+            Baseline YOLO 모델을 실제 환경에서 테스트한 결과 다음 문제를 확인했습니다.
+          </p>
+
+          <ul>
+            <li>Wrench 클래스의 상대적인 Detection 성능 저하</li>
+            <li>뒤집힌 Hammer를 Wrench로 오인식</li>
+            <li>Background에서 False Positive 발생</li>
+            <li>Mosaic Augmentation 과정에서 객체 일부가 잘린 이미지 생성</li>
+          </ul>
+
+          <p>
+            오류 케이스를 분석한 결과, 모델 구조보다
+            <strong>클래스별 데이터 분포, Background 데이터 부족, Augmentation 방식</strong>이
+            주요 개선 포인트라고 판단했습니다.
+          </p>
+
+          <p>
+            또한 Bounding Box만으로는 Knife와 같이 길이가 긴 객체의 실제 형태와 파지 방향을 판단하기 어려워,
+            <strong>Segmentation과 Depth를 결합한 Grasp Pose Estimation Pipeline이 필요</strong>하다고 판단했습니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h3>STT</h3>
+
+          <figure class="project-figure image-slot">
+            <div class="image-placeholder">STT ANALYSIS IMAGE</div>
+          </figure>
+
+          <p>
+            일반적인 STT 평가에서는 CER과 같은 전사 정확도를 주로 사용하지만,
+            로봇 환경에서는 <strong>행동에 필요한 핵심 정보가 정확히 보존되는지</strong>가
+            더 중요하다고 판단했습니다.
+          </p>
+
+          <p>
+            객체명 오인식이나 부정 표현 누락은 실제 오동작으로 이어질 수 있으며,
+            동일 행동의 다양한 표현, STT 오인식, 명령 정정,
+            다중 객체 및 복합 명령까지 처리해야 했습니다.
+          </p>
+
+          <p>
+            따라서 <strong>Robot Command 관점의 정량 평가와
+            LLM 기반 명령 해석·검증이 모두 필요</strong>하다고 정의했습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- ACTION -->
+      <section class="content-section">
+        <h2>Action</h2>
+
+        <div class="text-group">
+          <h3>1. Object Detection Dataset Improvement</h3>
+
+          <p>
+            Baseline 모델의 실패 케이스를 기준으로 학습 데이터를 재구성했습니다.
+          </p>
+
+          <ul>
+            <li>Dataset <strong>222장 → 294장</strong>으로 확대</li>
+            <li>부족했던 Wrench 클래스 데이터 보강</li>
+            <li>객체가 존재하지 않는 Background 이미지 <strong>50장 추가</strong></li>
+            <li>Mosaic 과정에서 객체가 잘리는 문제를 확인하고 Close Mosaic 조건 조정</li>
+          </ul>
+
+          <p>
+            실패 케이스 중심으로 데이터셋을 고도화해 클래스 혼동과
+            Background False Positive를 개선했습니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h3>2. Grasp Pose Estimation</h3>
+
+          <figure class="project-figure image-slot">
+            <div class="image-placeholder">GRASP POSE ESTIMATION PIPELINE IMAGE</div>
+          </figure>
+
+          <p>
+            Detection 결과를 실제 Robot Grasp 정보로 변환하기 위해 다음 Vision Pipeline을 구성했습니다.
+          </p>
+
+          <p class="inline-flow">
+            YOLO Detection → Segmentation → PCA / Depth → x, y, z, θ
+          </p>
+
+          <ul>
+            <li>Segmentation으로 객체의 실제 영역 추출</li>
+            <li>SAM2 · MobileSAM · EdgeSAM 등 Segmentation 모델 비교</li>
+            <li>Segmentation Mask에 PCA를 적용해 객체의 주축과 파지 방향 θ 계산</li>
+            <li>RGB-D Camera의 Depth를 결합해 객체의 x, y, z 위치 계산</li>
+          </ul>
+
+          <p>
+            이를 통해 Bounding Box 수준의 Detection 결과를
+            <strong>Robot Grasp에 활용 가능한 3D 위치·방향 정보로 확장</strong>했습니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h3>3. STT Evaluation &amp; Model Selection</h3>
+
+          <figure class="project-figure image-slot">
+            <div class="image-placeholder">STT MODEL COMPARISON IMAGE</div>
+          </figure>
+
+          <p>
+            실제 Robot Command 30개를 기준으로 평가 데이터셋을 구축하고
+            다음 6개 STT 모델을 동일한 조건에서 비교했습니다.
+          </p>
+
+          <ul>
+            <li>Whisper-1</li>
+            <li>GPT-4o Mini Transcribe</li>
+            <li>GPT-4o Transcribe</li>
+            <li>Whisper Large V3</li>
+            <li>Whisper Large V3 Turbo</li>
+            <li>Qwen3-ASR-0.6B</li>
+          </ul>
+
+          <p>CER 외에도 Robot Command 관점에서 다음 지표를 정의했습니다.</p>
+
+          <ul>
+            <li>Command Accuracy</li>
+            <li>Key Information Accuracy</li>
+            <li>Safety &amp; Negation Recall</li>
+            <li>Average Latency</li>
+          </ul>
+
+          <p>
+            정량 평가에서는 <strong>Whisper Large V3가 가장 높은 성능</strong>을 보였지만,
+            Vision 모델과의 동시 구동 환경에서 리소스와 시스템 안정성을 함께 검토해
+            <strong>최종 통합 모델로 Whisper-1을 선정</strong>했습니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h3>4. Command Parsing &amp; System Integration</h3>
+
+          <figure class="project-figure image-slot">
+            <div class="image-placeholder">COMMAND PARSING / INTEGRATION IMAGE</div>
+          </figure>
+
+          <p>
+            STT 결과를 그대로 Robot Control에 전달하지 않고,
+            LLM을 활용해 다음 Schema로 구조화했습니다.
+          </p>
+
+          <p class="inline-flow">
+            ACTION / RESPONSE / OBJECT / DESTINATION / MATCH_STATUS
+          </p>
+
+          <p>
+            실제 명령 케이스를 기준으로 다음 동작을 정성적으로 검증했습니다.
+          </p>
+
+          <ul>
+            <li>동일 행동의 다양한 표현 정규화</li>
+            <li>경미한 STT 오류 보정</li>
+            <li>앞선 명령 정정 처리</li>
+            <li>다중 객체 요청 차단</li>
+            <li>지원하지 않는 복합 동작 차단</li>
+          </ul>
+
+          <p>
+            이후 Vision에서 생성한 Object Pose와 Structured Command를
+            <strong>ROS2 기반 Robot Control Module에 연결</strong>했습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- RESULT -->
+      <section class="content-section">
+        <h2>Result</h2>
+
+        <div class="text-group">
+          <h3>Vision</h3>
+
+          <ul>
+            <li>
+              Dataset v2에서 <strong>mAP50 0.994</strong>를 유지하면서
+              <strong>Precision 0.967, Recall 0.997, F1 0.982</strong>로 개선
+            </li>
+            <li>
+              실패 케이스 기반 데이터 보강을 통해
+              <strong>높은 탐지 성능을 유지하면서 오탐·미탐 균형 개선</strong>
+            </li>
+            <li>
+              Detection 결과를 Segmentation · PCA · Depth와 연결해
+              <strong>Robot Grasp에 필요한 x, y, z, θ 산출 Pipeline 구현</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-group">
+          <h3>STT</h3>
+
+          <ul>
+            <li>
+              <strong>도메인 특화 STT 평가 데이터셋을 구축해 6개 모델을 정량 비교</strong>하고,
+              시스템 구동 환경까지 고려해 최종 통합 모델 선정
+            </li>
+            <li>
+              실제 명령 케이스에 대한 <strong>정성 평가를 통해
+              LLM Command Parsing의 정규화·보정·차단 동작 검증</strong>
+            </li>
+            <li>
+              STT 결과를 <strong>Structured Robot Command로 변환하는 명령 처리 Pipeline 구축</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-group">
+          <h3>Robot Integration</h3>
+
+          <ul>
+            <li>
+              Vision의 Object Pose와 STT의 Structured Command를
+              <strong>ROS2 기반 Robot Control에 통합</strong>
+            </li>
+            <li>
+              <strong>음성 명령 → 대상 객체 인식 → 위치·방향 추정 → 두산 M0609 증거물 수집</strong>으로
+              이어지는 End-to-End Scenario 구현
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- DEMO -->
+      <section class="content-section demo-section">
+        <h2>Demo</h2>
+
+        <div class="video-placeholder">
+          <span>DEMO VIDEO</span>
+        </div>
+
+        <!-- 실제 MP4 적용 예시
+        <video class="project-video" controls preload="metadata" playsinline>
+          <source src="../assets/videos/crime-scene-demo.mp4" type="video/mp4" />
+        </video>
+        -->
+      </section>
+
+      <!-- MORE DETAIL -->
+      <section class="content-section more-detail-section">
+        <h2>More Detail</h2>
+
+        <p>
+          Vision 모델 개선 과정, STT 모델 비교 결과, Grasp Pose Estimation,
+          Command Parsing 및 Robot Integration의 상세 내용을 Presentation에서 확인할 수 있습니다.
+        </p>
+
+        <a
+          class="detail-link"
+          href="YOUR_CRIME_SCENE_PPT_LINK"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Presentation ↗
+        </a>
+      </section>
+
+      <section class="back-section">
+        <a href="../index.html#projects">← Back to Projects</a>
+      </section>
+
+    </div>
+  </main>
+</body>
+</html>
