@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/project-simple.css" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=3" />
 </head>
 
 <body>
@@ -52,6 +52,7 @@
 
       <section class="content-section">
         <h2>Overview</h2>
+
         <p>
           Spot, AMR, Vision, Navigation, Manipulation 등 서로 다른 기술 요소를 하나의 Mission으로 연결해
           <strong>화재 감지 → 발화점 탐색 → 소화기 운반 → 현장 합류 → 초기 진압</strong>까지 수행하는
@@ -62,6 +63,14 @@
           개별 기능 구현에 앞서 요구사항을 로봇 기능 단위로 분해하고 구현 가능성을 검증한 뒤,
           이를 기반으로 <strong>Mission Flow, System Architecture, Interface를 선행 설계</strong>했습니다.
         </p>
+
+        <!-- OVERVIEW IMAGE -->
+        <figure class="project-figure overview-figure">
+          <img
+            src="../assets/images/fire-response-overview.png"
+            alt="Multi-Robot Fire Response System Overview"
+          />
+        </figure>
       </section>
 
       <section class="content-section">
@@ -144,29 +153,13 @@
             데이터 흐름을 기준으로 전체 System Architecture를 정의했습니다.
           </p>
 
-          <!-- FLOW CHART IMAGE -->
-          <!-- <figure class="project-figure">
-            <div class="image-placeholder">
-              <span>MISSION FLOW / SYSTEM ARCHITECTURE IMAGE</span>
-            </div>
-            <figcaption>
-              Mission Flow &amp; System Architecture
-            </figcaption>
-          </figure> -->
-
-          <!--
-          실제 이미지를 넣을 때 위의 image-placeholder를 아래 코드로 교체하세요.
-          -->
           <figure class="project-figure">
             <img
               src="../assets/images/fire-response-architecture.png"
               alt="Multi-Robot Fire Response System Mission Flow and System Architecture"
             />
-            <figcaption>
-              Mission Flow & System Architecture
-            </figcaption>
+            <figcaption>Mission Flow &amp; System Architecture</figcaption>
           </figure>
-          
 
           <div class="text-group sub-group">
             <h4>Fire Detection &amp; Perception</h4>
@@ -254,7 +247,6 @@
         </ul>
       </section>
 
-      <!-- DEMO VIDEO -->
       <section class="content-section demo-section">
         <h2>Demo</h2>
 
@@ -262,18 +254,14 @@
           <span>DEMO VIDEO</span>
         </div>
 
-        <!--
-        로컬 mp4 파일을 넣을 경우 위 placeholder를 아래 코드로 교체하세요.
-
+        <!-- MP4 사용 예시
         <video class="project-video" controls preload="metadata">
           <source src="../assets/videos/fire-response-demo.mp4" type="video/mp4" />
           브라우저가 video 태그를 지원하지 않습니다.
         </video>
         -->
 
-        <!--
-        YouTube 영상이라면 아래처럼 사용할 수 있습니다.
-
+        <!-- YouTube 사용 예시
         <div class="youtube-wrap">
           <iframe
             src="https://www.youtube.com/embed/VIDEO_ID"
@@ -282,6 +270,22 @@
           </iframe>
         </div>
         -->
+      </section>
+
+      <section class="content-section more-detail-section">
+        <h2>More Detail</h2>
+        <p>
+          프로젝트의 전체 설계 과정과 상세 내용을 Presentation에서 확인할 수 있습니다.
+        </p>
+
+        <a
+          class="detail-link"
+          href="YOUR_PPT_LINK"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Presentation ↗
+        </a>
       </section>
 
       <section class="back-section">

@@ -67,7 +67,7 @@
 
 
 /* =========================
-   Content Sections
+   Content
 ========================= */
 
 .content-section {
@@ -126,7 +126,7 @@
 
 
 /* =========================
-   Action Sub Sections
+   Action Groups
 ========================= */
 
 .text-group {
@@ -151,12 +151,16 @@
 
 
 /* =========================
-   Mission / Architecture Image
+   Project Images
 ========================= */
 
 .project-figure {
   width: 100%;
   margin: 40px 0 50px;
+}
+
+.overview-figure {
+  margin-top: 34px;
 }
 
 .project-figure img {
@@ -172,26 +176,9 @@
   line-height: 1.5;
 }
 
-.image-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #f5f5f5;
-  border: 1px solid #e8e8e8;
-
-  color: #999999;
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-}
-
 
 /* =========================
-   Demo Video
+   Demo
 ========================= */
 
 .demo-section {
@@ -201,16 +188,12 @@
 .video-placeholder {
   width: 100%;
   aspect-ratio: 16 / 9;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-top: 30px;
-
   background: #111111;
   color: #ffffff;
-
   font-family: "Inter", sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -226,11 +209,9 @@
 }
 
 .youtube-wrap {
-  position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   margin-top: 30px;
-  overflow: hidden;
 }
 
 .youtube-wrap iframe {
@@ -241,7 +222,31 @@
 
 
 /* =========================
-   Back Link
+   More Detail
+========================= */
+
+.more-detail-section {
+  padding-top: 6px;
+}
+
+.detail-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding-bottom: 2px;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #111111;
+}
+
+.detail-link:hover {
+  opacity: 0.55;
+}
+
+
+/* =========================
+   Back
 ========================= */
 
 .back-section {
