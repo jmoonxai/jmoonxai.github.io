@@ -1,29 +1,17 @@
-# GitHub Pages Portfolio Starter
+# GitHub Portfolio — 3-column Project Grid
 
-Minimal AI / Robotics portfolio starter for GitHub Pages.
+참고 이미지처럼 프로젝트 영역을 다음 구조로 변경한 버전입니다.
 
-## 1. Repository
+- 3열 프로젝트 그리드
+- 큰 정사각형 프로젝트 썸네일
+- 이미지 바로 아래 기술 스택
+- 그 아래 굵은 프로젝트 제목
+- 태블릿 2열 / 모바일 1열
 
-Create a public GitHub repository named:
-
-```text
-YOUR_GITHUB_ID.github.io
-```
-
-Example:
+## 파일 구조
 
 ```text
-mimi123.github.io
-```
-
-## 2. Upload files
-
-Upload the files in this folder to the repository root.
-
-Expected structure:
-
-```text
-YOUR_GITHUB_ID.github.io/
+jmoonxai.github.io/
 ├── index.html
 ├── css/
 │   └── style.css
@@ -32,75 +20,32 @@ YOUR_GITHUB_ID.github.io/
     └── resume.pdf
 ```
 
-## 3. Replace placeholders
+## 프로젝트 이미지 넣는 방법
 
-In `index.html`, replace:
-
-- `YOUR NAME`
-- `YOUR_GITHUB_ID`
-- `YOUR_EMAIL@example.com`
-- LinkedIn URL
-- Resume file
-- Project links
-- Project images
-
-## 4. Project images
-
-Replace:
+현재 프로젝트 썸네일 부분:
 
 ```html
-<a href="#" class="project-image placeholder">
-  <span>PROJECT IMAGE</span>
+<a href="#" class="project-thumb placeholder-thumb">
+  <span>ADD PROJECT IMAGE</span>
 </a>
 ```
 
-with:
+이미지를 넣을 때:
 
 ```html
-<a href="./projects/project-name.html" class="project-image">
-  <img src="./assets/images/project-name.png" alt="Project preview" />
+<a href="./projects/fire-response.html" class="project-thumb">
+  <img src="./assets/images/fire-response.jpg" alt="Multi-Robot Fire Response System">
 </a>
 ```
 
-## 5. Project pages
+`assets/images/` 폴더에 실제 이미지 파일을 업로드하면 됩니다.
 
-Recommended structure:
-
-```text
-projects/
-├── fire-response.html
-├── crime-scene-robot.html
-├── ocr-data-centric.html
-└── disaster-tweets.html
-```
-
-Recommended content:
-
-- Overview
-- Problem
-- System Architecture / Approach
-- Experiments
-- Results
-- Error Analysis
-- Lessons Learned
-- GitHub / Demo
-
-## 6. GitHub Pages
-
-For a repository named exactly:
+## 추천 이미지 파일명
 
 ```text
-YOUR_GITHUB_ID.github.io
-```
-
-GitHub normally publishes the main branch automatically.
-
-If not:
-
-`Settings → Pages → Build and deployment → Deploy from a branch → main / root`
-
-Then visit:
-
-```text
-https://YOUR_GITHUB_ID.github.io/
+assets/images/fire-response.jpg
+assets/images/crime-scene-robot.jpg
+assets/images/ocr.jpg
+assets/images/disaster-tweets.jpg
+assets/images/smart-farm.jpg
 ```
