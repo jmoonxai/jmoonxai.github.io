@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Robot Fire Response System — Jae Moon Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/project.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html" class="name">Jae Moon Hwang</a>
+    <nav class="top-links">
+      <a href="../assets/resume.pdf" target="_blank">Resume</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/jmoonxai" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="project-page">
+    <section class="project-hero">
+      <div class="project-container">
+        <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+        <div class="project-tags">
+          <span class="project-tag category">AI × Robotics</span>
+          <span class="project-tag">Physical AI</span>
+          <span class="project-tag">ROS2</span>
+          <span class="project-tag">Isaac Sim</span>
+        </div>
+        <h1>Multi-Robot Fire Response System</h1>
+        <p class="project-lead">
+          A multi-robot indoor fire response system connecting perception,
+          navigation, decision-making, and robot control.
+        </p>
+        <div class="project-meta-grid">
+          <div>
+            <span class="meta-label">Role</span>
+            <strong>Technical PM / System Architecture &amp; Integration</strong>
+          </div>
+          <div>
+            <span class="meta-label">Focus</span>
+            <strong>System Design · Integration · Mission Flow</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container narrow">
+        <h2>Overview</h2>
+        <p>
+          Spot, AMR, Vision, Navigation, and Manipulation modules were connected
+          into a single mission flow to support indoor fire detection and initial response.
+        </p>
+        <p>
+          Rather than starting from isolated feature development, I first broke down
+          the business requirements into robot-level functions and validated technical
+          feasibility. Based on the verified functions, I designed the overall mission
+          flow, system architecture, module responsibilities, and data flow.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container narrow">
+        <h2>Problem</h2>
+        <p>
+          The project involved multiple independent technologies, and completing
+          each module individually did not guarantee success of the full fire response scenario.
+        </p>
+        <ul>
+          <li>Robot roles and responsibilities were not clearly separated.</li>
+          <li>Vision outputs had to be converted into data usable by navigation and control.</li>
+          <li>Different modules used different coordinate systems.</li>
+          <li>Multiple asynchronous robot states had to be managed as one mission.</li>
+          <li>Interface mismatches could lead to integration failure late in development.</li>
+        </ul>
+        <p>
+          I identified system integration — communication, coordinate systems,
+          and state transitions — as the primary technical risk.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container">
+        <h2>System Architecture</h2>
+        <div class="architecture-grid">
+          <article class="architecture-card"><span>01</span><h3>Perception</h3><p>Fire / object detection, sensor input, position estimation, environment information.</p></article>
+          <article class="architecture-card"><span>02</span><h3>Navigation</h3><p>Localization, path planning, goal navigation, and obstacle avoidance.</p></article>
+          <article class="architecture-card"><span>03</span><h3>Robot Control</h3><p>Spot mobility, AMR movement, manipulation, and robot-specific commands.</p></article>
+          <article class="architecture-card"><span>04</span><h3>Mission Control</h3><p>Mission state management, task assignment, communication, and exception handling.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container narrow">
+        <h2>Mission Flow</h2>
+        <div class="mission-flow">
+          <div>Fire Detection</div><span>↓</span>
+          <div>Fire Location Estimation</div><span>↓</span>
+          <div>Mission Generation</div><span>↓</span>
+          <div>Robot Task Assignment</div><span>↓</span>
+          <div>Autonomous Navigation</div><span>↓</span>
+          <div>Fire Scene Approach</div><span>↓</span>
+          <div>Fire Response Action</div><span>↓</span>
+          <div>Mission Status Update</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container">
+        <h2>Key Integration Design</h2>
+        <div class="integration-grid">
+          <article><h3>Interface Definition</h3><p>Defined the input and output of each module before implementation, clarifying dependencies between Vision, Navigation, and Robot Control.</p></article>
+          <article><h3>Coordinate System</h3><p>Defined transformations between camera, robot, and map coordinates so spatial information could be shared consistently.</p></article>
+          <article><h3>State Management</h3><p>Managed asynchronous robot functions using mission states rather than relying only on sequential function calls.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container narrow">
+        <h2>Action</h2>
+        <ul>
+          <li>Decomposed the scenario into perception, navigation, control, and mission management functions.</li>
+          <li>Designed the end-to-end mission flow from fire detection to response action.</li>
+          <li>Defined responsibilities and data flow across Spot, AMR, Vision, and Navigation modules.</li>
+          <li>Specified communication interfaces, message formats, coordinate systems, and state transitions before implementation.</li>
+          <li>Managed development with integration readiness as a key criterion, not only individual feature completion.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="project-section result-section">
+      <div class="project-container narrow">
+        <h2>Result</h2>
+        <p>
+          By defining the mission and system architecture before implementation,
+          the project gained a clear functional scope and explicit module relationships.
+        </p>
+        <p>
+          Integration risks such as coordinate systems, communication methods,
+          and state management were identified early and addressed through interface design.
+        </p>
+        <blockquote>
+          Physical AI requires more than accurate individual AI models —
+          perception, decision-making, navigation, and robot control must operate as one coherent system.
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="project-container">
+        <h2>What I Learned</h2>
+        <div class="lesson-grid">
+          <article><h3>Define the system problem first</h3><p>Complex robotics projects require clear functional decomposition before model or feature development begins.</p></article>
+          <article><h3>Integration starts at architecture</h3><p>Communication protocols, coordinate systems, and state transitions should be designed early rather than left until final integration.</p></article>
+          <article><h3>Think beyond individual models</h3><p>The core challenge of Physical AI is connecting perception, decision-making, and robot control into reliable real-world behavior.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-next">
+      <div class="project-container">
+        <a href="../index.html#projects">← Back to all projects</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
