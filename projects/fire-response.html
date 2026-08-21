@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/project.css" />
+  <link rel="stylesheet" href="../css/project-simple.css" />
 </head>
 
 <body>
@@ -24,72 +24,42 @@
     </nav>
   </header>
 
-  <main class="project-page">
-    <section class="project-hero">
-      <div class="project-container">
-        <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+  <main class="simple-project">
+    <div class="simple-container">
 
-        <div class="project-tags">
-          <span class="project-tag category">AI × Robotics</span>
-          <span class="project-tag">Physical AI</span>
-          <span class="project-tag">ROS2</span>
-          <span class="project-tag">Isaac Sim</span>
-        </div>
-
+      <section class="project-intro">
+        <p class="eyebrow">PROJECT TITLE</p>
         <h1>Multi-Robot Fire Response System</h1>
 
-        <p class="project-lead">
-          실내 화재 상황에서 여러 로봇과 AI 모듈을 연결해 발화점 탐지부터
-          초기 대응까지 수행하는 다중 로봇 기반 화재 대응 시스템
-        </p>
-
-        <div class="project-meta-grid">
-          <div>
-            <span class="meta-label">Role</span>
-            <strong>Technical PM / System Architecture &amp; Integration</strong>
-          </div>
-
-          <div>
-            <span class="meta-label">Focus</span>
-            <strong>System Design · Integration · Mission Flow</strong>
-          </div>
+        <div class="meta-block">
+          <p class="eyebrow">TECHNOLOGIES</p>
+          <p class="meta-text">AI × Robotics, Physical AI, ROS2, Isaac Sim</p>
         </div>
-      </div>
-    </section>
 
-    <section class="project-section">
-      <div class="project-container narrow">
-        <h2>프로젝트 개요</h2>
+        <div class="meta-block">
+          <p class="eyebrow">ROLE</p>
+          <p class="meta-text">Technical PM / System Architecture &amp; Integration</p>
+        </div>
 
-        <p>
-          Spot, AMR, Vision, Navigation, Manipulation 등 서로 다른 기술 요소를
-          하나의 Mission Flow로 연결하여 <strong>실내 화재 발생 시 탐지부터
-          초기 대응까지 수행하는 다중 로봇 시스템</strong>을 설계했습니다.
-        </p>
+        <div class="meta-block project-summary">
+          <p class="eyebrow">PROJECT</p>
+          <p>
+            실내 화재 상황에서 여러 로봇과 AI 모듈을 연결해 발화점 탐지부터
+            초기 대응까지 수행하는 다중 로봇 기반 화재 대응 시스템을 설계했습니다.
+          </p>
+          <p>
+            Spot, AMR, Vision, Navigation, Manipulation 등 서로 다른 기술 요소를
+            하나의 Mission Flow로 연결하고, 각 로봇과 AI 모듈의 역할, 데이터 흐름,
+            좌표계, 통신 인터페이스를 정의했습니다.
+          </p>
+        </div>
+      </section>
 
-        <p>
-          개별 기능을 구현하는 것보다 전체 시스템이 실제 화재 대응 시나리오에서
-          정상적으로 동작하는 것을 목표로 했습니다. 이를 위해 개발에 앞서
-          비즈니스 요구사항을 실제 로봇이 수행해야 하는 기능 단위로 분해하고,
-          각 기능의 기술적 구현 가능성을 먼저 검증했습니다.
-        </p>
-
-        <p>
-          이후 검증된 기능을 기준으로 각 로봇과 AI 모듈의 역할, 데이터 흐름,
-          좌표계, 통신 인터페이스를 정의하고
-          <strong>전체 Mission Flow와 System Architecture, Integration 구조를 설계</strong>했습니다.
-        </p>
-      </div>
-    </section>
-
-    <section class="project-section">
-      <div class="project-container narrow">
-        <h2>문제 정의</h2>
-
+      <section class="content-section">
+        <h2>Problem</h2>
         <p>
           화재 대응 시나리오는 하나의 AI 모델이나 로봇 기능만으로 완성할 수 없었습니다.
         </p>
-
         <p>
           Spot, AMR, Vision, Navigation, Manipulation 등 여러 기술 요소가 순차적으로
           연결되어야 했으며, 각각의 기능이 개별적으로 정상 동작하더라도
@@ -98,26 +68,23 @@
 
         <ul>
           <li>로봇별 역할과 수행 범위가 명확하지 않음</li>
-          <li>Vision 결과를 Navigation 및 Robot Control에서 활용할 수 있는 형태로 변환해야 함</li>
+          <li>Vision 결과를 Navigation 및 Robot Control에서 활용 가능한 형태로 변환해야 함</li>
           <li>서로 다른 좌표계를 사용하는 모듈 간 위치 정보 정합이 필요함</li>
           <li>비동기적으로 동작하는 여러 기능의 상태를 하나의 Mission으로 관리해야 함</li>
-          <li>개발 완료 후 통합 단계에서 인터페이스 문제가 발견될 경우 전체 일정에 영향을 줄 가능성이 높음</li>
+          <li>통합 단계의 인터페이스 문제가 전체 일정에 영향을 줄 가능성이 높음</li>
         </ul>
 
         <p>
           따라서 개별 기능 개발에 앞서
-          <strong>전체 시나리오 관점에서 시스템을 먼저 정의하는 과정이 필요하다</strong>고 판단했습니다.
+          <strong>전체 시나리오 관점에서 시스템을 먼저 정의하는 과정</strong>이 필요하다고 판단했습니다.
         </p>
-      </div>
-    </section>
+      </section>
 
-    <section class="project-section">
-      <div class="project-container narrow">
-        <h2>분석</h2>
-
+      <section class="content-section">
+        <h2>Analyze</h2>
         <p>
-          비즈니스 요구사항을 그대로 구현하기보다, 먼저 실제 로봇이 수행해야 하는
-          기능 단위로 요구사항을 분해했습니다.
+          비즈니스 요구사항을 그대로 구현하기보다, 실제 로봇이 수행해야 하는 기능 단위로
+          요구사항을 분해했습니다.
         </p>
 
         <ul>
@@ -126,208 +93,168 @@
           <li>입력과 출력 데이터는 무엇인가?</li>
           <li>다른 모듈과 어떤 방식으로 정보를 주고받는가?</li>
           <li>실제 환경에서 구현 가능한가?</li>
-          <li>기능 수행에 실패했을 경우 다음 상태를 어떻게 처리할 것인가?</li>
+          <li>실패했을 경우 다음 상태는 어떻게 처리할 것인가?</li>
         </ul>
 
         <p>
-          분석 결과, 프로젝트의 가장 큰 리스크는 개별 AI 모델의 성능보다
+          분석 결과, 가장 큰 리스크는 개별 AI 모델의 성능보다
           <strong>모듈 간 통신 방식, 좌표계, 상태 전이와 같은 Integration Interface의 불일치</strong>라고 판단했습니다.
         </p>
 
         <p>
-          이에 기능 구현보다 먼저 전체 Mission Flow와 System Architecture를 설계하는
-          방향으로 프로젝트를 진행했습니다.
+          이에 기능 구현보다 먼저 전체 Mission Flow와 System Architecture를 설계했습니다.
         </p>
-      </div>
-    </section>
+      </section>
 
-    <section class="project-section">
-      <div class="project-container">
-        <h2>시스템 아키텍처</h2>
+      <section class="content-section">
+        <p class="eyebrow">SYSTEM ARCHITECTURE</p>
 
-        <div class="architecture-grid">
-          <article class="architecture-card">
-            <span>01</span>
-            <h3>Perception</h3>
-            <p>
-              화재 및 주변 환경 정보를 인식하고 후속 모듈이 사용할 수 있는 형태의
-              정보를 생성합니다.
-            </p>
-            <ul class="mini-list">
-              <li>Fire / Object Detection</li>
-              <li>Camera / Sensor Input</li>
-              <li>Position Estimation</li>
-              <li>Environment Information</li>
-            </ul>
-          </article>
-
-          <article class="architecture-card">
-            <span>02</span>
-            <h3>Navigation</h3>
-            <p>
-              Perception 결과와 Mission 상태를 기반으로 로봇의 이동 목표를 결정하고
-              이동을 수행합니다.
-            </p>
-            <ul class="mini-list">
-              <li>Localization</li>
-              <li>Path Planning</li>
-              <li>Goal Navigation</li>
-              <li>Obstacle Avoidance</li>
-            </ul>
-          </article>
-
-          <article class="architecture-card">
-            <span>03</span>
-            <h3>Robot Control</h3>
-            <p>
-              각 로봇이 실제 환경에서 수행해야 하는 행동을 실행합니다.
-            </p>
-            <ul class="mini-list">
-              <li>Spot Mobility</li>
-              <li>AMR Movement</li>
-              <li>Manipulation / Action</li>
-              <li>Robot-specific Command</li>
-            </ul>
-          </article>
-
-          <article class="architecture-card">
-            <span>04</span>
-            <h3>Mission Control</h3>
-            <p>
-              여러 로봇과 모듈의 상태를 관리하고 전체 화재 대응 시나리오를 제어합니다.
-            </p>
-            <ul class="mini-list">
-              <li>Mission State Management</li>
-              <li>Robot Task Assignment</li>
-              <li>Module Communication</li>
-              <li>Failure / Exception Handling</li>
-            </ul>
-          </article>
+        <div class="text-group">
+          <h2>Perception</h2>
+          <p>
+            화재 및 주변 환경 정보를 인식하고 후속 모듈이 사용할 수 있는 형태의 정보를 생성합니다.
+            Fire / Object Detection, Camera / Sensor Input, Position Estimation,
+            Environment Information을 포함합니다.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <section class="project-section">
-      <div class="project-container narrow">
+        <div class="text-group">
+          <h2>Navigation</h2>
+          <p>
+            Perception 결과와 Mission 상태를 기반으로 로봇의 이동 목표를 결정하고 이동을 수행합니다.
+            Localization, Path Planning, Goal Navigation, Obstacle Avoidance를 포함합니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h2>Robot Control</h2>
+          <p>
+            Spot Mobility, AMR Movement, Manipulation / Action 등
+            각 로봇이 실제 환경에서 수행해야 하는 행동을 실행합니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h2>Mission Control</h2>
+          <p>
+            Mission State Management, Robot Task Assignment, Module Communication,
+            Failure / Exception Handling을 통해 여러 로봇과 모듈의 상태를 관리합니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
         <h2>Mission Flow</h2>
 
-        <p>
-          전체 화재 대응 과정이 하나의 Mission으로 이어질 수 있도록 단계별 흐름을 정의했습니다.
-        </p>
+        <pre class="flow-code">Fire Detection
+↓
+Fire Location Estimation
+↓
+Mission Generation
+↓
+Robot Task Assignment
+↓
+Autonomous Navigation
+↓
+Fire Scene Approach
+↓
+Fire Response Action
+↓
+Mission Status Update</pre>
 
-        <div class="mission-flow">
-          <div>Fire Detection</div>
-          <span>↓</span>
-          <div>Fire Location Estimation</div>
-          <span>↓</span>
-          <div>Mission Generation</div>
-          <span>↓</span>
-          <div>Robot Task Assignment</div>
-          <span>↓</span>
-          <div>Autonomous Navigation</div>
-          <span>↓</span>
-          <div>Fire Scene Approach</div>
-          <span>↓</span>
-          <div>Fire Response Action</div>
-          <span>↓</span>
-          <div>Mission Status Update</div>
+        <p>
+          각 단계의 입력과 출력 데이터를 정의하여 다음 모듈이 어떤 정보를 받아야 하는지 명확히 했습니다.
+          이를 통해 각 기능을 병렬로 개발하더라도 최종 Integration 단계에서 동일한 Interface를
+          기준으로 연결할 수 있도록 설계했습니다.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <p class="eyebrow">KEY INTEGRATION DESIGN</p>
+
+        <div class="text-group">
+          <h2>Interface Definition</h2>
+          <p>
+            각 기능의 입력과 출력을 사전에 정의하여 모듈 간 의존성을 명확히 했습니다.
+            Vision 모듈이 단순 Detection 결과만 전달하는 것이 아니라,
+            Navigation과 Robot Control에서 바로 활용할 수 있도록 객체 위치와 상태 정보를
+            구조화된 데이터 형태로 전달하도록 설계했습니다.
+          </p>
         </div>
 
-        <p class="flow-description">
-          각 단계마다 입력과 출력 데이터를 정의하여 다음 모듈이 어떤 정보를 받아야 하는지
-          명확히 했습니다. 이를 통해 각 기능을 병렬로 개발하더라도 최종 Integration 단계에서
-          동일한 Interface를 기준으로 연결할 수 있도록 설계했습니다.
-        </p>
-      </div>
-    </section>
-
-    <section class="project-section">
-      <div class="project-container">
-        <h2>주요 Integration 설계</h2>
-
-        <div class="integration-grid">
-          <article>
-            <h3>1. Interface Definition</h3>
-            <p>
-              각 기능의 입력과 출력을 사전에 정의하여 모듈 간 의존성을 명확히 했습니다.
-              Vision 모듈이 단순 Detection 결과만 전달하는 것이 아니라,
-              Navigation과 Robot Control에서 바로 활용할 수 있도록 객체의 위치와 상태 정보를
-              구조화된 데이터 형태로 전달하도록 설계했습니다.
-            </p>
-          </article>
-
-          <article>
-            <h3>2. Coordinate System</h3>
-            <p>
-              Camera, Robot, Map 등 서로 다른 좌표계에서 생성된 데이터를 하나의 시스템에서
-              함께 사용할 수 있도록 각 좌표계를 정의하고 필요한 Transformation을 통해
-              공통 좌표계로 변환하도록 설계했습니다.
-            </p>
-          </article>
-
-          <article>
-            <h3>3. State Management</h3>
-            <p>
-              비동기적으로 동작하는 여러 기능을 단순 순차 호출로 관리하지 않고,
-              Mission State를 기준으로 전체 흐름을 관리하도록 구성했습니다.
-            </p>
-          </article>
+        <div class="text-group">
+          <h2>Coordinate System</h2>
+          <p>
+            Camera, Robot, Map 등 서로 다른 좌표계에서 생성된 데이터를 함께 사용할 수 있도록
+            각 좌표계를 정의하고 필요한 Transformation을 통해 공통 좌표계에서 위치 정보를
+            사용할 수 있도록 설계했습니다.
+          </p>
         </div>
 
-        <div class="state-flow">
-          <span>IDLE</span><b>→</b>
-          <span>FIRE_DETECTED</span><b>→</b>
-          <span>TARGET_CONFIRMED</span><b>→</b>
-          <span>ROBOT_DISPATCHED</span><b>→</b>
-          <span>NAVIGATING</span><b>→</b>
-          <span>RESPONSE_READY</span><b>→</b>
-          <span>RESPONSE_EXECUTED</span><b>→</b>
-          <span>MISSION_COMPLETE</span>
+        <div class="text-group">
+          <h2>State Management</h2>
+          <p>
+            비동기적으로 동작하는 여러 기능을 단순 순차 호출로 관리하지 않고,
+            Mission State를 기준으로 전체 흐름을 관리하도록 구성했습니다.
+          </p>
+
+          <pre class="state-code">IDLE
+→ FIRE_DETECTED
+→ TARGET_CONFIRMED
+→ ROBOT_DISPATCHED
+→ NAVIGATING
+→ RESPONSE_READY
+→ RESPONSE_EXECUTED
+→ MISSION_COMPLETE</pre>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="project-section">
-      <div class="project-container narrow">
-        <h2>수행 내용</h2>
+      <section class="content-section">
+        <h2>Action</h2>
 
-        <h3>요구사항 기능 분해</h3>
-        <p>
-          화재 대응 시나리오를 Perception, Navigation, Control, Mission Management 단위로
-          분해하고 각 기능의 기술적 구현 가능성을 검토했습니다.
-        </p>
+        <div class="text-group">
+          <h3>요구사항 기능 분해</h3>
+          <p>
+            화재 대응 시나리오를 Perception, Navigation, Control, Mission Management 단위로
+            분해하고 각 기능의 기술적 구현 가능성을 검토했습니다.
+          </p>
+        </div>
 
-        <h3>Mission Flow 설계</h3>
-        <p>
-          발화점 탐지부터 로봇 이동과 초기 대응까지 전체 동작 순서를 정의하고
-          각 단계의 Dependency를 정리했습니다.
-        </p>
+        <div class="text-group">
+          <h3>Mission Flow 설계</h3>
+          <p>
+            발화점 탐지부터 로봇 이동과 초기 대응까지 전체 동작 순서를 정의하고
+            각 단계의 Dependency를 정리했습니다.
+          </p>
+        </div>
 
-        <h3>System Architecture 설계</h3>
-        <p>
-          Spot, AMR, Vision, Navigation 등 각 모듈의 역할을 정의하고
-          전체 시스템에서 데이터와 제어 명령이 어떻게 이동하는지 설계했습니다.
-        </p>
+        <div class="text-group">
+          <h3>System Architecture 설계</h3>
+          <p>
+            Spot, AMR, Vision, Navigation 등 각 모듈의 역할을 정의하고
+            전체 시스템에서 데이터와 제어 명령이 어떻게 이동하는지 설계했습니다.
+          </p>
+        </div>
 
-        <h3>Interface 사전 정의</h3>
-        <p>
-          통신 방식, Message Format, Coordinate System, State Transition 등을 개발 전에
-          정의하여 Integration 단계에서 발생할 수 있는 충돌을 최소화했습니다.
-        </p>
+        <div class="text-group">
+          <h3>Interface 사전 정의</h3>
+          <p>
+            통신 방식, Message Format, Coordinate System, State Transition 등을 개발 전에
+            정의하여 Integration 단계에서 발생할 수 있는 충돌을 최소화했습니다.
+          </p>
+        </div>
 
-        <h3>Integration 중심 개발 관리</h3>
-        <p>
-          개별 기능의 완성 여부뿐 아니라
-          <strong>해당 기능이 다른 모듈과 실제로 연결될 수 있는지</strong>를 기준으로
-          개발 진행 상황을 확인했습니다.
-        </p>
-      </div>
-    </section>
+        <div class="text-group">
+          <h3>Integration 중심 개발 관리</h3>
+          <p>
+            개별 기능의 완성 여부뿐 아니라 해당 기능이 다른 모듈과 실제로 연결될 수 있는지를
+            기준으로 개발 진행 상황을 확인했습니다.
+          </p>
+        </div>
+      </section>
 
-    <section class="project-section result-section">
-      <div class="project-container narrow">
-        <h2>결과</h2>
-
+      <section class="content-section">
+        <h2>Result</h2>
         <p>
           개발 시작 전에 전체 Mission과 System Architecture를 정의함으로써
           <strong>각 팀원이 구현해야 할 기능의 범위와 모듈 간 연결 관계를 명확하게 만들 수 있었습니다.</strong>
@@ -335,22 +262,22 @@
 
         <p>
           또한 통합 단계에서 문제가 될 가능성이 높은 좌표계, 통신 방식, 상태 관리 등의 요소를
-          사전에 식별하고 Interface를 정의함으로써, 개별 기능 개발 이후 발생할 수 있는
+          사전에 식별하고 Interface를 정의하여, 개별 기능 개발 이후 발생할 수 있는
           Integration 리스크를 줄이는 방향으로 프로젝트를 진행했습니다.
         </p>
 
-        <blockquote>
-          Perception → Decision → Navigation → Robot Control이 하나의 시스템으로 연결되어야
-          Physical AI가 실제 환경에서 동작할 수 있다는 점을 경험했습니다.
-        </blockquote>
-      </div>
-    </section>
+        <p>
+          이 프로젝트를 통해 AI 모델 자체의 성능뿐 아니라
+          <strong>Perception → Decision → Navigation → Robot Control이 하나의 시스템으로 연결되어야
+          Physical AI가 실제 환경에서 동작할 수 있다</strong>는 점을 경험했습니다.
+        </p>
+      </section>
 
-    <section class="project-next">
-      <div class="project-container">
-        <a href="../index.html#projects">← Back to all projects</a>
-      </div>
-    </section>
+      <section class="back-section">
+        <a href="../index.html#projects">← Back to Projects</a>
+      </section>
+
+    </div>
   </main>
 </body>
 </html>

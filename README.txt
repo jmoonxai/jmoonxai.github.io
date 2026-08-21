@@ -1,7 +1,9 @@
-기존 jmoonxai.github.io 저장소에서 아래 두 파일을 교체/추가하세요.
+기존 GitHub Pages 저장소에서 아래 두 파일을 사용하세요.
 
-1. projects/fire-response.html
-2. css/project.css
+projects/fire-response.html
+css/project-simple.css
 
-메인 index.html의 첫 번째 프로젝트 카드는
-./projects/fire-response.html 로 연결하면 됩니다.
+상세 페이지는 기존 css/style.css도 함께 불러옵니다.
+
+메인 index.html의 Multi-Robot Fire Response System 링크는:
+./projects/fire-response.html

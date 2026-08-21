@@ -1,0 +1,152 @@
+/* Simple project detail */
+
+.simple-project {
+  background: #fff;
+  font-family: "Noto Sans KR", "Inter", sans-serif;
+}
+
+.simple-container {
+  width: min(calc(100% - 48px), 880px);
+  margin: 0 auto;
+}
+
+.project-intro {
+  padding: 48px 0 130px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: #222;
+  font-family: "Inter", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
+
+.project-intro h1 {
+  margin: 0;
+  font-family: "Inter", "Noto Sans KR", sans-serif;
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.meta-block {
+  margin-top: 38px;
+}
+
+.meta-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.project-summary {
+  margin-top: 38px;
+}
+
+.project-summary p:not(.eyebrow) {
+  margin: 0 0 8px;
+  color: #1f1f1f;
+  font-size: 15px;
+  line-height: 1.75;
+  word-break: keep-all;
+}
+
+.content-section {
+  margin-bottom: 130px;
+}
+
+.content-section h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+}
+
+.content-section h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.content-section p,
+.content-section li {
+  color: #222;
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.content-section p {
+  margin: 0 0 12px;
+}
+
+.content-section ul {
+  margin: 16px 0 18px;
+  padding-left: 22px;
+}
+
+.content-section li + li {
+  margin-top: 4px;
+}
+
+.text-group {
+  margin-top: 44px;
+}
+
+.text-group:first-of-type {
+  margin-top: 20px;
+}
+
+.flow-code,
+.state-code {
+  margin: 20px 0 26px;
+  padding: 0;
+  background: transparent;
+  color: #111;
+  font-family: "Inter", monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.back-section {
+  padding: 10px 0 70px;
+}
+
+.back-section a {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .simple-container {
+    width: min(calc(100% - 28px), 880px);
+  }
+
+  .project-intro {
+    padding: 38px 0 90px;
+  }
+
+  .project-intro h1 {
+    font-size: 23px;
+  }
+
+  .content-section {
+    margin-bottom: 90px;
+  }
+
+  .content-section h2 {
+    font-size: 20px;
+  }
+
+  .content-section p,
+  .content-section li,
+  .project-summary p:not(.eyebrow) {
+    font-size: 14px;
+  }
+}
