@@ -1,9 +1,12 @@
-기존 GitHub Pages 저장소에서 아래 두 파일을 사용하세요.
+업로드할 파일
 
-projects/fire-response.html
-css/project-simple.css
+- projects/fire-response.html
+- css/project-simple.css
 
-상세 페이지는 기존 css/style.css도 함께 불러옵니다.
+Mission & System Architecture 이미지:
+assets/images/fire-response-architecture.png
 
-메인 index.html의 Multi-Robot Fire Response System 링크는:
-./projects/fire-response.html
+Demo mp4를 직접 올릴 경우 권장 경로:
+assets/videos/fire-response-demo.mp4
+
+HTML 안에 이미지/영상 교체용 예시 코드가 주석으로 포함되어 있습니다.
