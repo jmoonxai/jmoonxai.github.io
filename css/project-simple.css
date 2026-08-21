@@ -1,24 +1,25 @@
-/* Simple project detail */
+/* Simple centered project detail */
 
 .simple-project {
   background: #fff;
   font-family: "Noto Sans KR", "Inter", sans-serif;
+  text-align: center;
 }
 
 .simple-container {
-  width: min(calc(100% - 48px), 880px);
+  width: min(calc(100% - 48px), 820px);
   margin: 0 auto;
 }
 
 .project-intro {
-  padding: 48px 0 130px;
+  padding: 56px 0 120px;
 }
 
 .eyebrow {
-  margin: 0 0 4px;
-  color: #222;
+  margin: 0 0 6px;
+  color: #333;
   font-family: "Inter", monospace;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.18em;
 }
@@ -26,96 +27,101 @@
 .project-intro h1 {
   margin: 0;
   font-family: "Inter", "Noto Sans KR", sans-serif;
-  font-size: 25px;
-  line-height: 1.25;
+  font-size: 26px;
+  line-height: 1.3;
   letter-spacing: -0.035em;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .meta-block {
-  margin-top: 38px;
+  margin-top: 34px;
 }
 
 .meta-text {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .project-summary {
-  margin-top: 38px;
+  max-width: 720px;
+  margin: 40px auto 0;
 }
 
 .project-summary p:not(.eyebrow) {
-  margin: 0 0 8px;
-  color: #1f1f1f;
-  font-size: 15px;
-  line-height: 1.75;
-  word-break: keep-all;
-}
-
-.content-section {
-  margin-bottom: 130px;
-}
-
-.content-section h2 {
-  margin: 0 0 8px;
-  font-size: 22px;
-  line-height: 1.35;
-  letter-spacing: -0.03em;
-}
-
-.content-section h3 {
-  margin: 0 0 6px;
-  font-size: 17px;
-  line-height: 1.45;
-}
-
-.content-section p,
-.content-section li {
+  margin: 0 0 10px;
   color: #222;
   font-size: 15px;
   line-height: 1.8;
   word-break: keep-all;
 }
 
+.content-section {
+  max-width: 720px;
+  margin: 0 auto 120px;
+}
+
+.content-section h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.content-section h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.content-section p,
+.content-section li {
+  color: #222;
+  font-size: 15px;
+  line-height: 1.85;
+  word-break: keep-all;
+}
+
 .content-section p {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 
 .content-section ul {
-  margin: 16px 0 18px;
-  padding-left: 22px;
+  display: inline-block;
+  margin: 18px auto 20px;
+  padding-left: 20px;
+  text-align: left;
 }
 
 .content-section li + li {
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .text-group {
-  margin-top: 44px;
+  margin-top: 46px;
 }
 
 .text-group:first-of-type {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .flow-code,
 .state-code {
-  margin: 20px 0 26px;
+  display: inline-block;
+  margin: 24px auto 28px;
   padding: 0;
   background: transparent;
   color: #111;
   font-family: "Inter", monospace;
   font-size: 14px;
-  line-height: 1.8;
+  line-height: 1.9;
   white-space: pre-wrap;
+  text-align: center;
 }
 
 .back-section {
-  padding: 10px 0 70px;
+  padding: 0 0 70px;
+  text-align: center;
 }
 
 .back-section a {
@@ -125,11 +131,11 @@
 
 @media (max-width: 640px) {
   .simple-container {
-    width: min(calc(100% - 28px), 880px);
+    width: min(calc(100% - 28px), 820px);
   }
 
   .project-intro {
-    padding: 38px 0 90px;
+    padding: 42px 0 84px;
   }
 
   .project-intro h1 {
@@ -137,7 +143,7 @@
   }
 
   .content-section {
-    margin-bottom: 90px;
+    margin-bottom: 84px;
   }
 
   .content-section h2 {
