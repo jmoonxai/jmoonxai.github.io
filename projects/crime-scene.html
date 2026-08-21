@@ -10,26 +10,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/project-simple.css?v=5" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=6" />
 
   <style>
+    /* Crime Scene project-only image layout */
     .image-slot {
       margin: 34px 0 42px;
     }
 
-    .image-placeholder {
+    .image-slot img,
+    .project-figure img {
+      display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f5f5f5;
-      border: 1px solid #e7e7e7;
-      color: #999;
-      font-family: "Inter", sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      height: auto;
+    }
+
+    /* Vision error examples: two images side-by-side */
+    .vision-image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 72px;
+      margin: 30px 0 30px;
+      align-items: start;
+    }
+
+    .vision-image-grid figure {
+      margin: 0;
+    }
+
+    .vision-image-grid img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 700px) {
+      .vision-image-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
     }
   </style>
 </head>
@@ -71,9 +90,15 @@
         </div>
       </section>
 
-      <!-- OVERVIEW -->
       <section class="content-section">
         <h2>Overview</h2>
+
+        <figure class="project-figure overview-figure">
+          <img
+            src="../assets/images/crime-scene-overview.png"
+            alt="Crime Scene Evidence Collection Robot Overview"
+          />
+        </figure>
 
         <p>
           범죄 현장에서 사람이 직접 증거물을 탐색·수집할 때 발생할 수 있는 현장 훼손과
@@ -89,12 +114,14 @@
         </p>
       </section>
 
-      <!-- PROBLEM -->
       <section class="content-section">
         <h2>Problem</h2>
 
         <figure class="project-figure image-slot">
-          <div class="image-placeholder">PROBLEM / SYSTEM OVERVIEW IMAGE</div>
+          <img
+            src="../assets/images/crime-scene-problem.png"
+            alt="Crime Scene Evidence Collection System Overview"
+          />
         </figure>
 
         <p>
@@ -111,20 +138,27 @@
         </p>
       </section>
 
-      <!-- ANALYZE -->
       <section class="content-section">
         <h2>Analyze</h2>
 
         <div class="text-group">
           <h3>Vision</h3>
 
-          <figure class="project-figure image-slot">
-            <div class="image-placeholder">VISION ERROR ANALYSIS IMAGE 01</div>
-          </figure>
+          <div class="vision-image-grid">
+            <figure>
+              <img
+                src="../assets/images/crime-scene-vision-error-01.png"
+                alt="Vision Detection Error Analysis Example 1"
+              />
+            </figure>
 
-          <figure class="project-figure image-slot">
-            <div class="image-placeholder">VISION ERROR ANALYSIS IMAGE 02</div>
-          </figure>
+            <figure>
+              <img
+                src="../assets/images/crime-scene-vision-error-02.png"
+                alt="Vision Detection Error Analysis Example 2"
+              />
+            </figure>
+          </div>
 
           <p>
             Baseline YOLO 모델을 실제 환경에서 테스트한 결과 다음 문제를 확인했습니다.
@@ -153,7 +187,10 @@
           <h3>STT</h3>
 
           <figure class="project-figure image-slot">
-            <div class="image-placeholder">STT ANALYSIS IMAGE</div>
+            <img
+              src="../assets/images/crime-scene-stt-analysis.png"
+              alt="STT Command Analysis"
+            />
           </figure>
 
           <p>
@@ -175,7 +212,6 @@
         </div>
       </section>
 
-      <!-- ACTION -->
       <section class="content-section">
         <h2>Action</h2>
 
@@ -203,7 +239,10 @@
           <h3>2. Grasp Pose Estimation</h3>
 
           <figure class="project-figure image-slot">
-            <div class="image-placeholder">GRASP POSE ESTIMATION PIPELINE IMAGE</div>
+            <img
+              src="../assets/images/crime-scene-grasp-pose.png"
+              alt="Grasp Pose Estimation Pipeline"
+            />
           </figure>
 
           <p>
@@ -231,7 +270,10 @@
           <h3>3. STT Evaluation &amp; Model Selection</h3>
 
           <figure class="project-figure image-slot">
-            <div class="image-placeholder">STT MODEL COMPARISON IMAGE</div>
+            <img
+              src="../assets/images/crime-scene-stt-comparison.png"
+              alt="STT Model Evaluation Results"
+            />
           </figure>
 
           <p>
@@ -268,7 +310,10 @@
           <h3>4. Command Parsing &amp; System Integration</h3>
 
           <figure class="project-figure image-slot">
-            <div class="image-placeholder">COMMAND PARSING / INTEGRATION IMAGE</div>
+            <img
+              src="../assets/images/crime-scene-command-parsing.png"
+              alt="Command Parsing and Robot Integration"
+            />
           </figure>
 
           <p>
@@ -299,13 +344,11 @@
         </div>
       </section>
 
-      <!-- RESULT -->
       <section class="content-section">
         <h2>Result</h2>
 
         <div class="text-group">
           <h3>Vision</h3>
-
           <ul>
             <li>
               Dataset v2에서 <strong>mAP50 0.994</strong>를 유지하면서
@@ -324,7 +367,6 @@
 
         <div class="text-group">
           <h3>STT</h3>
-
           <ul>
             <li>
               <strong>도메인 특화 STT 평가 데이터셋을 구축해 6개 모델을 정량 비교</strong>하고,
@@ -342,7 +384,6 @@
 
         <div class="text-group">
           <h3>Robot Integration</h3>
-
           <ul>
             <li>
               Vision의 Object Pose와 STT의 Structured Command를
@@ -356,22 +397,15 @@
         </div>
       </section>
 
-      <!-- DEMO -->
       <section class="content-section demo-section">
         <h2>Demo</h2>
 
-        <div class="video-placeholder">
-          <span>DEMO VIDEO</span>
-        </div>
-
-        <!-- 실제 MP4 적용 예시
         <video class="project-video" controls preload="metadata" playsinline>
           <source src="../assets/videos/crime-scene-demo.mp4" type="video/mp4" />
+          브라우저가 video 태그를 지원하지 않습니다.
         </video>
-        -->
       </section>
 
-      <!-- MORE DETAIL -->
       <section class="content-section more-detail-section">
         <h2>More Detail</h2>
 
