@@ -1,14 +1,14 @@
-# GitHub Portfolio — 3-column Project Grid
+# JMoon Portfolio — Final Layout
 
-참고 이미지처럼 프로젝트 영역을 다음 구조로 변경한 버전입니다.
+Current structure:
 
-- 3열 프로젝트 그리드
-- 큰 정사각형 프로젝트 썸네일
-- 이미지 바로 아래 기술 스택
-- 그 아래 굵은 프로젝트 제목
-- 태블릿 2열 / 모바일 1열
+1. Top Bar
+2. About
+3. My Projects
+4. Expertise
+5. Contact
 
-## 파일 구조
+## File structure
 
 ```text
 jmoonxai.github.io/
@@ -17,35 +17,55 @@ jmoonxai.github.io/
 │   └── style.css
 └── assets/
     ├── images/
+    │   ├── profile.jpg
+    │   ├── fire-response.jpg
+    │   ├── crime-scene.jpg
+    │   ├── ocr.jpg
+    │   └── disaster-tweets.jpg
     └── resume.pdf
 ```
 
-## 프로젝트 이미지 넣는 방법
+## Add a project image
 
-현재 프로젝트 썸네일 부분:
+Replace:
 
 ```html
-<a href="#" class="project-thumb placeholder-thumb">
+<a href="#" class="project-image placeholder">
   <span>ADD PROJECT IMAGE</span>
 </a>
 ```
 
-이미지를 넣을 때:
+with:
 
 ```html
-<a href="./projects/fire-response.html" class="project-thumb">
+<a href="#" class="project-image">
   <img src="./assets/images/fire-response.jpg" alt="Multi-Robot Fire Response System">
 </a>
 ```
 
-`assets/images/` 폴더에 실제 이미지 파일을 업로드하면 됩니다.
+## Add the Contact profile image
 
-## 추천 이미지 파일명
+Replace:
 
-```text
-assets/images/fire-response.jpg
-assets/images/crime-scene-robot.jpg
-assets/images/ocr.jpg
-assets/images/disaster-tweets.jpg
-assets/images/smart-farm.jpg
+```html
+<div class="profile-placeholder">
+  <span>PROFILE<br />IMAGE</span>
+</div>
 ```
+
+with:
+
+```html
+<div class="profile-placeholder">
+  <img src="./assets/images/profile.jpg" alt="Jae Moon Hwang">
+</div>
+```
+
+## Replace these placeholders
+
+- `YOUR_GITHUB_ID`
+- `YOUR_EMAIL@example.com`
+- LinkedIn URL
+- Project links
+- Project image filenames
+- Resume PDF
