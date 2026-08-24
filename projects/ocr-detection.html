@@ -78,6 +78,17 @@
       height: auto;
     }
 
+    .ocr-detection-project .image-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      margin: 32px 0 44px;
+    }
+
+    .ocr-detection-project .image-grid-2 .project-figure {
+      margin: 0;
+    }
+
     .flow-code {
       display: block;
       width: 100%;
@@ -191,6 +202,11 @@
     }
 
     @media (max-width: 640px) {
+      .ocr-detection-project .image-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
       .flow-code {
         padding: 16px;
         font-size: 12px;
@@ -239,7 +255,7 @@
 
     <!-- OVERVIEW -->
     <section class="content-section">
-      <h2>Overview & Problem</h2>
+      <h2>Overview</h2>
 
       <figure class="project-figure">
         <img
@@ -248,17 +264,34 @@
         />
       </figure>
 
-      <figure class="project-figure">
-        <img
-          src="../assets/images/ocr-detection-problem.png"
-          alt="Prescription OCR detection error cases"
-        />
-      </figure>
-      
       <p>
-        기존 Recognition 모델 고도화 이후에도 OCR 성능 차이가 남아 있었고,
+        앞선 Recognition 모델 고도화 이후에도 OCR 성능 차이가 남아 있었고,
         Error Analysis 결과 Detection 단계의 오류가 전체 OCR 성능을 제한하는 주요 병목임을 확인했습니다.
       </p>
+
+      <pre class="flow-code">CRAFT Reproduction → Architecture Improvement → Korean Synthetic Dataset → Prescription Fine-tuning</pre>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="content-section">
+      <h2>Problem</h2>
+
+      <div class="image-grid-2">
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-problem-01.png"
+            alt="Prescription OCR detection error case 1"
+          />
+        </figure>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-problem-02.png"
+            alt="Prescription OCR detection error case 2"
+          />
+        </figure>
+      </div>
+
       <p>
         Recognition 모델을 고도화한 결과 처방전 OCR Recognition 성능은
         <strong>F1 0.934</strong>까지 향상되었지만,
@@ -270,13 +303,7 @@
         인접한 글자가 하나의 Bounding Box로 묶이고,
         일부 글자가 세로 방향으로 잘못 검출되는 문제가 반복적으로 발생했습니다.
       </p>
-     
     </section>
-
-    <!-- <!-- PROBLEM -->
-    <section class="content-section">
-      <h2>Problem</h2>
-    </section> -->
 
     <!-- ANALYZE -->
     <section class="content-section">
@@ -335,12 +362,21 @@
         <span class="action-label">ACTION 1</span>
         <h3>1. CRAFT Training Pipeline 재현</h3>
 
-        <figure class="project-figure">
-          <img
-            src="../assets/images/ocr-detection-reproduction.png"
-            alt="CRAFT training pipeline reproduction"
-          />
-        </figure>
+        <div class="image-grid-2">
+          <figure class="project-figure">
+            <img
+              src="../assets/images/ocr-detection-reproduction-01.png"
+              alt="CRAFT reproduction analysis 1"
+            />
+          </figure>
+
+          <figure class="project-figure">
+            <img
+              src="../assets/images/ocr-detection-reproduction-02.png"
+              alt="CRAFT reproduction analysis 2"
+            />
+          </figure>
+        </div>
 
         <p>
           공식 Training Code가 존재하지 않아 CRAFT 논문과 공개 Repository를 기반으로
@@ -368,13 +404,6 @@
       <div class="action-step">
         <span class="action-label">ACTION 2</span>
         <h3>2. Stage 1 — Backbone Architecture 개선</h3>
-
-        <figure class="project-figure">
-          <img
-            src="../assets/images/ocr-detection-backbone.png"
-            alt="CRAFT backbone architecture comparison"
-          />
-        </figure>
 
         <p>
           CRAFT Stage 1의 Backbone으로 사용하던 VGG16을
@@ -419,13 +448,6 @@
         <span class="action-label">ACTION 4</span>
         <h3>4. Stage 2 — Prescription-specific Dataset 구축 및 Fine-tuning</h3>
 
-        <figure class="project-figure">
-          <img
-            src="../assets/images/ocr-detection-prescription-dataset.png"
-            alt="Prescription annotation dataset"
-          />
-        </figure>
-
         <p>
           Weakly-Supervised Learning 단계에 실제 처방전 Domain을 반영하기 위해
           <strong>처방전 이미지 130장</strong>을 직접 Annotation해 학습 Dataset을 구축했습니다.
@@ -448,12 +470,21 @@
     <section class="content-section">
       <h2>Result</h2>
 
-      <figure class="project-figure">
-        <img
-          src="../assets/images/ocr-detection-result.png"
-          alt="Prescription OCR detection improvement result"
-        />
-      </figure>
+      <div class="image-grid-2">
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-result-01.png"
+            alt="Prescription OCR quantitative result"
+          />
+        </figure>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-result-02.png"
+            alt="Prescription OCR qualitative result"
+          />
+        </figure>
+      </div>
 
       <div class="performance-table-wrap">
         <table class="performance-table" aria-label="Final prescription OCR performance">
@@ -481,12 +512,12 @@
               <td>0.845</td>
             </tr>
             <tr>
-              <td>Custom;Net — Detection 개선 전</td>
+              <td>G&amp;Net — Detection 개선 전</td>
               <td>0.926</td>
               <td>0.934</td>
             </tr>
             <tr>
-              <td>Custom;Net — Detection 개선 후</td>
+              <td>G&amp;Net — Detection 개선 후</td>
               <td>0.967</td>
               <td>0.970</td>
             </tr>
@@ -516,7 +547,7 @@
 
       <a
         class="detail-link"
-        href="#"
+        href="https://docs.google.com/presentation/d/1d9TIhNQGDEkDK2jB4SoJpTijzeRdUpRL/edit?slide=id.p1#slide=id.p1"
         target="_blank"
         rel="noreferrer"
       >
