@@ -239,7 +239,7 @@
 
     <!-- OVERVIEW -->
     <section class="content-section">
-      <h2>Overview</h2>
+      <h2>Overview & Problem</h2>
 
       <figure class="project-figure">
         <img
@@ -248,25 +248,17 @@
         />
       </figure>
 
-      <p>
-        기존 Recognition 모델 고도화 이후에도 OCR 성능 차이가 남아 있었고,
-        Error Analysis 결과 Detection 단계의 오류가 전체 OCR 성능을 제한하는 주요 병목임을 확인했습니다.
-      </p>
-
-      <pre class="flow-code">CRAFT Reproduction → Architecture Improvement → Korean Synthetic Dataset → Prescription Fine-tuning</pre>
-    </section>
-
-    <!-- PROBLEM -->
-    <section class="content-section">
-      <h2>Problem</h2>
-
       <figure class="project-figure">
         <img
           src="../assets/images/ocr-detection-problem.png"
           alt="Prescription OCR detection error cases"
         />
       </figure>
-
+      
+      <p>
+        기존 Recognition 모델 고도화 이후에도 OCR 성능 차이가 남아 있었고,
+        Error Analysis 결과 Detection 단계의 오류가 전체 OCR 성능을 제한하는 주요 병목임을 확인했습니다.
+      </p>
       <p>
         Recognition 모델을 고도화한 결과 처방전 OCR Recognition 성능은
         <strong>F1 0.934</strong>까지 향상되었지만,
@@ -278,7 +270,13 @@
         인접한 글자가 하나의 Bounding Box로 묶이고,
         일부 글자가 세로 방향으로 잘못 검출되는 문제가 반복적으로 발생했습니다.
       </p>
+     
     </section>
+
+    <!-- <!-- PROBLEM -->
+    <section class="content-section">
+      <h2>Problem</h2>
+    </section> -->
 
     <!-- ANALYZE -->
     <section class="content-section">
