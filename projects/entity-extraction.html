@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnosis Entity Extraction & Multi-GPU Serving — Jae Moon Hwang</title>
+  <meta name="description" content="진단서 Entity Extraction 모델을 Data-centric 방식으로 고도화하고 Human-in-the-loop 라벨링과 NGINX 기반 Multi-GPU Serving 환경까지 구축한 프로젝트." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=10" />
+
+  <style>
+    .entity-project { color:#111; text-align:left; }
+    .entity-project .project-intro,
+    .entity-project .content-section,
+    .entity-project .back-section { text-align:left; }
+    .entity-project .project-intro { max-width:720px; margin:0 auto; }
+    .entity-project .intro-block { margin-bottom:34px; }
+    .entity-project .intro-block:first-child { margin-bottom:36px; }
+    .entity-project .intro-block.project-block { margin-top:8px; margin-bottom:0; }
+    .entity-project .intro-value { margin:0; font-size:16px; font-weight:600; line-height:1.75; }
+    .entity-project .project-block .intro-value { font-weight:400; }
+    .entity-project .content-section ul { display:block; margin-left:0; margin-right:0; }
+    .entity-project .project-figure { width:100%; margin:32px 0 44px; }
+    .entity-project .project-figure img { display:block; width:100%; height:auto; }
+    .flow-code { display:block; width:100%; box-sizing:border-box; margin:28px 0 8px; padding:18px 20px; background:#f7f7f7; border-radius:8px; text-align:left; overflow-x:auto; }
+    .action-step { margin-top:56px; }
+    .action-step:first-of-type { margin-top:30px; }
+    .action-label { display:inline-block; margin-bottom:12px; padding:5px 9px; background:#111; color:#fff; border-radius:4px; font-family:"Inter",sans-serif; font-size:11px; font-weight:600; letter-spacing:.06em; }
+    .metric-inline { margin:20px 0 0; font-family:"Inter",sans-serif; font-size:14px; font-weight:600; line-height:1.8; }
+    .analysis-note { margin-top:22px; padding-left:16px; border-left:2px solid #111; }
+    .performance-table-wrap { width:100%; margin-top:30px; overflow-x:auto; }
+    .performance-table { width:100%; min-width:620px; border-collapse:collapse; font-family:"Inter","Noto Sans KR",sans-serif; font-size:14px; }
+    .performance-table th,.performance-table td { padding:14px 12px; border-bottom:1px solid #e5e5e5; text-align:right; }
+    .performance-table th:first-child,.performance-table td:first-child { text-align:left; }
+    .performance-table thead th { color:#555; font-size:12px; font-weight:600; }
+    .performance-table tbody tr:last-child { font-weight:700; }
+    .result-highlight { margin-top:34px; padding:22px 24px; background:#f7f7f7; border-radius:8px; }
+    .result-highlight strong { display:block; margin-bottom:5px; font-family:"Inter",sans-serif; font-size:21px; line-height:1.4; }
+    .detail-link { display:inline-block; margin-top:12px; font-size:15px; font-weight:600; text-decoration:underline; text-underline-offset:4px; }
+    .entity-project .back-section { max-width:720px; margin:0 auto; }
+    @media (max-width:640px) {
+      .flow-code { padding:16px; font-size:12px; }
+      .action-step { margin-top:44px; }
+      .result-highlight { padding:18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a href="../index.html" class="name">Jae Moon Hwang</a>
+    <nav class="top-links">
+      <a href="../assets/resume.pdf" target="_blank">Resume</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/jmoonxai" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="simple-project entity-project">
+    <div class="simple-container">
+
+      <section class="project-intro">
+        <div class="intro-block">
+          <p class="eyebrow">PROJECT TITLE</p>
+          <h1>진단서 Entity Extraction 모델 고도화 및 Multi-GPU 서빙</h1>
+        </div>
+
+        <div class="intro-block">
+          <p class="eyebrow">TECHNOLOGIES</p>
+          <p class="intro-value">Python · PyTorch · LayoutXLM · FastAPI · Gunicorn · NGINX · Docker · Linux</p>
+        </div>
+
+        <div class="intro-block">
+          <p class="eyebrow">ROLE</p>
+          <p class="intro-value">Project Leader / End-to-End Development</p>
+        </div>
+
+        <div class="intro-block project-block">
+          <p class="eyebrow">PROJECT</p>
+          <p class="intro-value">
+            진단서 OCR 결과를 구조화된 Entity로 변환하는 모델을 개발하고,
+            Data-centric 방식의 Dataset 개선과 Human-in-the-loop 라벨링,
+            Multi-GPU Model Serving까지 End-to-End로 구축했습니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Overview</h2>
+        <figure class="project-figure">
+          <img src="../assets/images/entity-extraction-overview.png" alt="Diagnosis Entity Extraction project overview" />
+        </figure>
+        <p>
+          OCR 모델에서 추출된 Raw Text를 병명, 분류번호, 환자정보 등
+          <strong>구조화된 정보로 변환하는 Entity Extraction 모델</strong>을 개발했습니다.
+        </p>
+        <p>
+          모델 성능 개선뿐 아니라 데이터 구축 비용을 줄이기 위해 모델 Prediction을 활용한
+          Human-in-the-loop 라벨링 프로세스를 설계하고, 최종 모델을 Multi-GPU 환경에서
+          서비스할 수 있도록 추론 구조까지 구축했습니다.
+        </p>
+        <pre class="flow-code">OCR → Entity Extraction → Error Analysis → Dataset Improvement → Human-in-the-loop → Multi-GPU Serving</pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Problem</h2>
+        <figure class="project-figure">
+          <img src="../assets/images/entity-extraction-problem.png" alt="Diagnosis document entity extraction problem" />
+        </figure>
+        <p>
+          진단서 OCR 결과를 병명, 분류번호, 환자성명, 진단일, 의료기관 등
+          <strong>구조화된 Entity로 자동 변환하는 모델</strong>이 필요했습니다.
+        </p>
+        <p>
+          모델 성능을 높이기 위해 실제 데이터를 지속적으로 추가해야 했지만,
+          이미지 1장당 라벨링에 약 <strong>40분</strong>이 소요되어 데이터 구축 비용과 시간이 큰 문제가 있었습니다.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Analyze</h2>
+        <p>
+          진단서는 일반적인 Text Classification과 달리
+          <strong>Text 내용뿐 아니라 문서 내 위치와 Layout 정보가 중요한 구조화 문서</strong>라고 판단해
+          Text·Image·Layout 정보를 함께 활용하는 LayoutXLM을 기반 모델로 선정했습니다.
+        </p>
+        <p>
+          초기 Dataset의 Error Analysis 결과, 환자성명·등록번호와 같이 자주 등장하는 항목은 높은 성능을 보였지만
+          <strong>수술명·수술일·소견과 같이 빈도가 낮은 항목과 비정형 Layout</strong>에서 성능이 크게 저하되는 것을 확인했습니다.
+        </p>
+        <p>
+          Edge Case를 보강하기 위해 Synthetic Data를 추가했지만, 추가 데이터를 계속 늘려도
+          F1-score가 <strong>0.838 → 0.840 → 0.836</strong> 수준으로 정체되면서
+          단순한 Synthetic Data 확대만으로는 추가 성능 개선에 한계가 있다고 판단했습니다.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Action</h2>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 1</span>
+          <h3>1. Test Dataset &amp; Baseline 구축</h3>
+          <p>
+            모델 개선의 기준이 되는 진단서 Test Dataset <strong>135장</strong>을 구축하고,
+            문서 형식에 따라 일반적인 유형과 비정형 Edge Case를 구분했습니다.
+          </p>
+          <p>
+            Word-level 기준으로 Ground Truth와 Prediction의 Entity Category를 비교해
+            Precision, Recall, F1-score를 평가했습니다.
+          </p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">DATASET V1</span>
+          <h3>2. 실제 진단서 기반 Dataset 구축</h3>
+          <figure class="project-figure">
+            <img src="../assets/images/entity-extraction-dataset-v1.png" alt="Entity Extraction Dataset v1 labeling" />
+          </figure>
+          <p>
+            실제 진단서 <strong>300장</strong>을 Label Studio를 활용해 직접 라벨링하고,
+            병명·분류번호·환자성명·진단일·의료기관·수술명·수술일·소견 등을 포함한
+            15개 Class의 학습 Dataset을 구축했습니다.
+          </p>
+          <p class="metric-inline">Precision 0.806 · Recall 0.809 · F1-score 0.808</p>
+          <div class="analysis-note">
+            <p>수술명 F1 0.526, 수술일 F1 0.455, 소견 F1 0.601로 희소 Entity와 Edge Case에 대한 성능 보강이 필요하다고 판단했습니다.</p>
+          </div>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">DATASET V2</span>
+          <h3>3. Edge Case 중심 Synthetic Data 구축</h3>
+          <figure class="project-figure">
+            <img src="../assets/images/entity-extraction-synthetic-data.png" alt="Synthetic diagnosis document examples" />
+          </figure>
+          <p>
+            Dataset v1의 Error Analysis를 기반으로 SynthDoG을 활용해
+            <strong>Synthetic Document 600장</strong>을 생성했습니다.
+          </p>
+          <ul>
+            <li>실제 진단서의 항목 위치와 Layout 반영</li>
+            <li>등록번호·환자명·주민등록번호 등 값 Random Generation</li>
+            <li>건강보험심사평가원의 병명·분류번호 데이터 활용</li>
+            <li>소견 Text 및 비정형 Layout 생성</li>
+            <li>수술명·수술일 학습을 위한 수술확인서 Layout 추가</li>
+          </ul>
+          <p class="metric-inline">F1-score 0.808 → 0.838</p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 4</span>
+          <h3>4. Synthetic Data의 한계 분석</h3>
+          <p>
+            추가 성능 개선을 위해 Synthetic Data를 1,000장, 500장씩 더 확장했지만
+            F1-score가 <strong>0.838 → 0.840 → 0.836</strong>으로 정체되었습니다.
+          </p>
+          <p>
+            이를 통해 Synthetic Data의 양을 늘리는 것보다
+            <strong>실제 데이터의 다양성과 품질을 확보하는 것이 중요</strong>하다고 판단하고,
+            실제 진단서 데이터를 확장하는 방향으로 전략을 변경했습니다.
+          </p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 5</span>
+          <h3>5. Human-in-the-loop Labeling Tool 구축</h3>
+          <figure class="project-figure">
+            <img src="../assets/images/entity-extraction-labeling-tool.png" alt="Human-in-the-loop labeling tool" />
+          </figure>
+          <p>
+            실제 데이터 구축 비용을 줄이기 위해 기존 OCR 및 Entity Extraction 모델을 라벨링 보조 도구로 활용했습니다.
+          </p>
+          <pre class="flow-code">Detection → 글자 위치 자동 생성 → Recognition → Text 자동 입력 → Entity Extraction → Category 자동 예측</pre>
+          <p>
+            사람이 처음부터 모든 정보를 입력하는 대신 모델 Prediction을 검수·수정하는 방식으로 전환해
+            이미지 1장당 라벨링 시간을 <strong>40분 → 10분</strong>으로 단축했습니다.
+          </p>
+          <p class="metric-inline">Labeling Time 75% Reduction</p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">DATASET V3</span>
+          <h3>6. 실제 데이터 700장 추가 및 모델 고도화</h3>
+          <figure class="project-figure">
+            <img src="../assets/images/entity-extraction-dataset-v3.png" alt="Entity Extraction Dataset v3 improvement" />
+          </figure>
+          <p>Human-in-the-loop 방식으로 실제 진단서 <strong>700장</strong>을 추가 구축했습니다.</p>
+          <ul>
+            <li>Real Data: 1,078장</li>
+            <li>Synthetic Data: 600장</li>
+            <li>Final Train Dataset: 1,678장</li>
+          </ul>
+          <p class="metric-inline">Precision 0.888 · Recall 0.904 · F1-score 0.896</p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 7</span>
+          <h3>7. Multi-GPU Model Serving</h3>
+          <figure class="project-figure">
+            <img src="../assets/images/entity-extraction-multi-gpu.png" alt="NGINX and Gunicorn Multi-GPU serving architecture" />
+          </figure>
+          <p>
+            최종 Entity Extraction 모델의 실제 서비스 적용을 위해
+            <strong>NGINX + Gunicorn 기반 Multi-GPU 추론 환경</strong>을 구축했습니다.
+          </p>
+          <pre class="flow-code">User → NGINX → Gunicorn → GPU Model</pre>
+          <p>
+            NGINX 기반 Load Balancing을 적용해 하나의 Endpoint로 들어온 요청을
+            <strong>2개 GPU의 Model Process에 분산하는 Multi-GPU 추론 환경</strong>을 구축했습니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Result</h2>
+        <figure class="project-figure">
+          <img src="../assets/images/entity-extraction-result.png" alt="Entity Extraction model performance result" />
+        </figure>
+        <div class="performance-table-wrap">
+          <table class="performance-table" aria-label="Entity Extraction dataset performance">
+            <thead>
+              <tr>
+                <th>Dataset</th><th>Precision</th><th>Recall</th><th>F1-score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Dataset v1</td><td>0.806</td><td>0.809</td><td>0.808</td></tr>
+              <tr><td>Dataset v2</td><td>0.837</td><td>0.840</td><td>0.838</td></tr>
+              <tr><td>Dataset v3</td><td>0.888</td><td>0.904</td><td>0.896</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="result-highlight">
+          <strong>Entity Extraction F1 0.808 → 0.896</strong>
+          <span>Labeling Time 40min → 10min / 75% Reduction</span>
+        </div>
+        <ul>
+          <li>Entity Extraction F1-score 0.896으로 목표했던 약 90% 성능 달성</li>
+          <li>Synthetic Data의 한계를 분석하고 실제 데이터 중심으로 학습 전략 전환</li>
+          <li>Human-in-the-loop Labeling Pipeline을 통해 이미지당 라벨링 시간 40분 → 10분, 작업시간 75% 절감</li>
+          <li>실제 진단서 데이터 700장을 추가해 Dataset v3 구축</li>
+          <li>단일 Endpoint 요청을 2개 GPU로 분산하는 NGINX 기반 Multi-GPU 추론 환경 구축</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>More Detail</h2>
+        <p>
+          Dataset 개선 과정, Synthetic Data 생성, Human-in-the-loop 라벨링 및
+          Multi-GPU Serving의 상세 내용은 Presentation에서 확인할 수 있습니다.
+        </p>
+        <a class="detail-link" href="#" target="_blank" rel="noreferrer">View Presentation ↗</a>
+      </section>
+
+      <section class="back-section">
+        <a href="../index.html#projects">← Back to Projects</a>
+      </section>
+
+    </div>
+  </main>
+</body>
+</html>
