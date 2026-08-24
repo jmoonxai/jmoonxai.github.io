@@ -27,6 +27,16 @@
     .entity-project .content-section ul { display:block; margin-left:0; margin-right:0; }
     .entity-project .project-figure { width:100%; margin:32px 0 44px; }
     .entity-project .project-figure img { display:block; width:100%; height:auto; }
+    .entity-project .image-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin: 32px 0 44px;
+      align-items: start;
+    }
+    .entity-project .image-grid-2 .project-figure {
+      margin: 0;
+    }
     .flow-code { display:block; width:100%; box-sizing:border-box; margin:28px 0 8px; padding:18px 20px; background:#f7f7f7; border-radius:8px; text-align:left; overflow-x:auto; }
     .action-step { margin-top:56px; }
     .action-step:first-of-type { margin-top:30px; }
@@ -44,6 +54,10 @@
     .detail-link { display:inline-block; margin-top:12px; font-size:15px; font-weight:600; text-decoration:underline; text-underline-offset:4px; }
     .entity-project .back-section { max-width:720px; margin:0 auto; }
     @media (max-width:640px) {
+      .entity-project .image-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
       .flow-code { padding:16px; font-size:12px; }
       .action-step { margin-top:44px; }
       .result-highlight { padding:18px; }
@@ -176,12 +190,21 @@
         <div class="action-step">
           <span class="action-label">DATASET V2</span>
           <h3>3. Edge Case 중심 Synthetic Data 구축</h3>
-          <figure class="project-figure">
-            <img src="../assets/images/entity-extraction-synthetic-data.png" alt="Synthetic diagnosis document examples" />
-          </figure>
+          <div class="image-grid-2">
             <figure class="project-figure">
-            <img src="../assets/images/entity-extraction-synthetic-data2.png" alt="Synthetic diagnosis document examples" />
-          </figure>
+              <img
+                src="../assets/images/entity-extraction-synthetic-data.png"
+                alt="Synthetic diagnosis document example 1"
+              />
+            </figure>
+
+            <figure class="project-figure">
+              <img
+                src="../assets/images/entity-extraction-synthetic-data2.png"
+                alt="Synthetic diagnosis document example 2"
+              />
+            </figure>
+          </div>
           <p>
             Dataset v1의 Error Analysis를 기반으로 SynthDoG을 활용해
             <strong>Synthetic Document 600장</strong>을 생성했습니다.
