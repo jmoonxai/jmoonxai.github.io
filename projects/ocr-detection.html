@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Prescription Text Detection Improvement — Jae Moon Hwang</title>
+  <meta
+    name="description"
+    content="CRAFT 재현과 처방전 도메인 데이터 구축을 통해 OCR Detection F1-score를 0.926에서 0.967로 개선한 프로젝트."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=9" />
+
+  <style>
+    .ocr-detection-project {
+      color: #111;
+      text-align: left;
+    }
+
+    .ocr-detection-project .project-intro,
+    .ocr-detection-project .content-section,
+    .ocr-detection-project .back-section {
+      text-align: left;
+    }
+
+    .ocr-detection-project .project-intro {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .ocr-detection-project .intro-block {
+      margin-bottom: 34px;
+    }
+
+    .ocr-detection-project .intro-block:first-child {
+      margin-bottom: 36px;
+    }
+
+    .ocr-detection-project .intro-block.project-block {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .ocr-detection-project .intro-value {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.75;
+    }
+
+    .ocr-detection-project .project-block .intro-value {
+      font-weight: 400;
+    }
+
+    .ocr-detection-project .content-section ul {
+      display: block;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .ocr-detection-project .project-figure {
+      width: 100%;
+      margin: 32px 0 44px;
+    }
+
+    .ocr-detection-project .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .flow-code {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 28px 0 8px;
+      padding: 18px 20px;
+      background: #f7f7f7;
+      border-radius: 8px;
+      text-align: left;
+      overflow-x: auto;
+    }
+
+    .action-step {
+      margin-top: 56px;
+    }
+
+    .action-step:first-of-type {
+      margin-top: 30px;
+    }
+
+    .action-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 9px;
+      background: #111;
+      color: #fff;
+      border-radius: 4px;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .metric-inline {
+      margin: 20px 0 0;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.8;
+    }
+
+    .analysis-note {
+      margin-top: 22px;
+      padding-left: 16px;
+      border-left: 2px solid #111;
+    }
+
+    .performance-table-wrap {
+      width: 100%;
+      margin-top: 30px;
+      overflow-x: auto;
+    }
+
+    .performance-table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+      font-family: "Inter", "Noto Sans KR", sans-serif;
+      font-size: 14px;
+    }
+
+    .performance-table th,
+    .performance-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: right;
+    }
+
+    .performance-table th:first-child,
+    .performance-table td:first-child {
+      text-align: left;
+    }
+
+    .performance-table thead th {
+      color: #555;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .performance-table tbody tr:last-child {
+      font-weight: 700;
+    }
+
+    .result-highlight {
+      margin-top: 34px;
+      padding: 22px 24px;
+      background: #f7f7f7;
+      border-radius: 8px;
+    }
+
+    .result-highlight strong {
+      display: block;
+      margin-bottom: 5px;
+      font-family: "Inter", sans-serif;
+      font-size: 21px;
+      line-height: 1.4;
+    }
+
+    .detail-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .ocr-detection-project .back-section {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .flow-code {
+        padding: 16px;
+        font-size: 12px;
+      }
+
+      .action-step {
+        margin-top: 44px;
+      }
+
+      .result-highlight {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body class="simple-project ocr-detection-project">
+  <main class="simple-container">
+
+    <!-- PROJECT INTRO -->
+    <header class="project-intro">
+      <div class="intro-block">
+        <p class="eyebrow">PROJECT TITLE</p>
+        <h1>처방전 문자 검출 모델 성능 고도화</h1>
+      </div>
+
+      <div class="intro-block">
+        <p class="eyebrow">TECHNOLOGIES</p>
+        <p class="intro-value">Python · PyTorch · OCR · Text Detection · CRAFT</p>
+      </div>
+
+      <div class="intro-block">
+        <p class="eyebrow">ROLE</p>
+        <p class="intro-value">Team Leader / Detection Model Development</p>
+      </div>
+
+      <div class="intro-block project-block">
+        <p class="eyebrow">PROJECT</p>
+        <p class="intro-value">
+          CRAFT 논문과 비공식 구현체를 분석해 학습 Pipeline을 재현하고,
+          한글 합성 데이터와 실제 처방전 데이터를 활용해 Detection 모델을
+          처방전 Domain에 맞게 고도화했습니다.
+        </p>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="content-section">
+      <h2>Overview</h2>
+
+      <figure class="project-figure">
+        <img
+          src="../assets/images/ocr-detection-overview.png"
+          alt="Prescription text detection project overview"
+        />
+      </figure>
+
+      <p>
+        앞선 Recognition 모델 고도화 이후에도 OCR 성능 차이가 남아 있었고,
+        Error Analysis 결과 Detection 단계의 오류가 전체 OCR 성능을 제한하는 주요 병목임을 확인했습니다.
+      </p>
+
+      <pre class="flow-code">CRAFT Reproduction → Architecture Improvement → Korean Synthetic Dataset → Prescription Fine-tuning</pre>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="content-section">
+      <h2>Problem</h2>
+
+      <figure class="project-figure">
+        <img
+          src="../assets/images/ocr-detection-problem.png"
+          alt="Prescription OCR detection error cases"
+        />
+      </figure>
+
+      <p>
+        Recognition 모델을 고도화한 결과 처방전 OCR Recognition 성능은
+        <strong>F1 0.934</strong>까지 향상되었지만,
+        Naver OCR API의 <strong>F1 0.968</strong>과 성능 차이가 남아 있었습니다.
+      </p>
+
+      <p>
+        정성 분석 결과 작은 글자·숫자가 검출되지 않거나,
+        인접한 글자가 하나의 Bounding Box로 묶이고,
+        일부 글자가 세로 방향으로 잘못 검출되는 문제가 반복적으로 발생했습니다.
+      </p>
+    </section>
+
+    <!-- ANALYZE -->
+    <section class="content-section">
+      <h2>Analyze</h2>
+
+      <p>
+        Text Detection 모델을 검토한 결과 CRAFT를 개선 모델로 선정했지만,
+        Naver Clova는 학습 코드를 공개하지 않았고 공개된 비공식 구현체 역시
+        논문에서 보고한 성능을 재현하지 못했습니다.
+      </p>
+
+      <div class="performance-table-wrap">
+        <table class="performance-table" aria-label="CRAFT reproduction baseline">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1-score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Official CRAFT</td>
+              <td>0.898</td>
+              <td>0.843</td>
+              <td>0.869</td>
+            </tr>
+            <tr>
+              <td>Unofficial CRAFT</td>
+              <td>0.803</td>
+              <td>0.705</td>
+              <td>0.751</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        논문, Official Repository, 비공식 구현체를 비교한 결과
+        성능 차이를 유발하는 핵심 구현 요소를 다음과 같이 좁혔습니다.
+      </p>
+
+      <ul>
+        <li>Vertical Text 판별 기준</li>
+        <li>Random Crop 방식</li>
+        <li>Watershed 기반 Character Pseudo Label 생성 방식</li>
+      </ul>
+    </section>
+
+    <!-- ACTION -->
+    <section class="content-section">
+      <h2>Action</h2>
+
+      <div class="action-step">
+        <span class="action-label">ACTION 1</span>
+        <h3>1. CRAFT Training Pipeline 재현</h3>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-reproduction.png"
+            alt="CRAFT training pipeline reproduction"
+          />
+        </figure>
+
+        <p>
+          공식 Training Code가 존재하지 않아 CRAFT 논문과 공개 Repository를 기반으로
+          비공식 구현체를 분석하고 학습 Pipeline을 직접 재구성했습니다.
+        </p>
+
+        <ul>
+          <li><strong>Vertical Text</strong>: 세로 단어 판별 조건을 더 엄격하게 재정의</li>
+          <li><strong>Random Crop</strong>: 작은 글자가 과도하게 축소되거나 불필요한 Padding이 생기는 문제 수정</li>
+          <li><strong>Watershed</strong>: 원본 이미지가 아닌 Region Score에 적용해 Character 분리 성능 개선</li>
+        </ul>
+
+        <p class="metric-inline">
+          Unofficial CRAFT F1-score: 0.751 → 0.852
+        </p>
+
+        <div class="analysis-note">
+          <p>
+            Precision은 약 12%, Recall은 약 14% 향상되었고,
+            Official CRAFT의 F1 0.869에 근접한 수준까지 성능을 재현했습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="action-step">
+        <span class="action-label">ACTION 2</span>
+        <h3>2. Stage 1 — Backbone Architecture 개선</h3>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-backbone.png"
+            alt="CRAFT backbone architecture comparison"
+          />
+        </figure>
+
+        <p>
+          CRAFT Stage 1의 Backbone으로 사용하던 VGG16을
+          <strong>ResNet50</strong>으로 변경해 Feature Representation을 강화했습니다.
+        </p>
+
+        <p class="metric-inline">
+          Detection F1: 0.816 → 0.841<br />
+          Recognition F1: 0.876 → 0.901
+        </p>
+      </div>
+
+      <div class="action-step">
+        <span class="action-label">ACTION 3</span>
+        <h3>3. Stage 1 — Korean Synthetic Dataset 구축</h3>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-synthetic-dataset.png"
+            alt="Korean synthetic dataset examples"
+          />
+        </figure>
+
+        <p>
+          처방전에서 사용되는 한글·숫자·영어·기호를 충분히 학습할 수 있도록
+          <strong>한글 Synthetic Image 약 14만 장</strong>을 생성했습니다.
+        </p>
+
+        <ul>
+          <li>Font: 굴림, 바탕, 맑은 고딕, 나눔 고딕</li>
+          <li>기존 Recognition 모델에서 사용한 약·의료 관련 Vocabulary 활용</li>
+          <li>한글·숫자·영어·기호를 포함한 Synthetic Image 생성</li>
+        </ul>
+
+        <p class="metric-inline">
+          ResNet50 + Korean Synthetic Dataset<br />
+          Detection F1: 0.929 · Recognition F1: 0.931
+        </p>
+      </div>
+
+      <div class="action-step">
+        <span class="action-label">ACTION 4</span>
+        <h3>4. Stage 2 — Prescription-specific Dataset 구축 및 Fine-tuning</h3>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-detection-prescription-dataset.png"
+            alt="Prescription annotation dataset"
+          />
+        </figure>
+
+        <p>
+          Weakly-Supervised Learning 단계에 실제 처방전 Domain을 반영하기 위해
+          <strong>처방전 이미지 130장</strong>을 직접 Annotation해 학습 Dataset을 구축했습니다.
+        </p>
+
+        <ul>
+          <li>Word-level Bounding Box Annotation</li>
+          <li>단어 내부에 공백이 큰 경우 Character 단위 Annotation</li>
+          <li>필수 인식 대상이 아닌 영역은 <code>dnc (do-not-care)</code>로 Labeling</li>
+        </ul>
+
+        <p>
+          실제 처방전 Dataset으로 Fine-tuning하여 작은 글자 미검출,
+          인접 문자 병합, 잘못된 세로 검출 등 기존 Error Case를 개선했습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="content-section">
+      <h2>Result</h2>
+
+      <figure class="project-figure">
+        <img
+          src="../assets/images/ocr-detection-result.png"
+          alt="Prescription OCR detection improvement result"
+        />
+      </figure>
+
+      <div class="performance-table-wrap">
+        <table class="performance-table" aria-label="Final prescription OCR performance">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Detection F1</th>
+              <th>Recognition F1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Google Vision API</td>
+              <td>0.818</td>
+              <td>0.956</td>
+            </tr>
+            <tr>
+              <td>Naver OCR API</td>
+              <td>0.957</td>
+              <td>0.968</td>
+            </tr>
+            <tr>
+              <td>EasyOCR Korean v1</td>
+              <td>0.914</td>
+              <td>0.845</td>
+            </tr>
+            <tr>
+              <td>G&amp;Net — Detection 개선 전</td>
+              <td>0.926</td>
+              <td>0.934</td>
+            </tr>
+            <tr>
+              <td>G&amp;Net — Detection 개선 후</td>
+              <td>0.967</td>
+              <td>0.970</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="result-highlight">
+        <strong>Detection F1 0.926 → 0.967</strong>
+        <span>Recognition F1 0.934 → 0.970</span>
+      </div>
+
+      <ul>
+        <li>공식 Training Code가 없는 CRAFT를 논문 분석을 통해 직접 재현</li>
+        <li>Backbone 변경과 Korean Synthetic Dataset 14만 장 구축으로 Stage 1 성능 개선</li>
+        <li>실제 처방전 130장 Annotation 및 Fine-tuning을 통해 Domain-specific Detection 성능 개선</li>
+        <li>최종적으로 Naver OCR API보다 높은 Detection / Recognition F1-score 달성</li>
+        <li>재현한 모델을 기반으로 EasyOCR Open-source Contribution으로 연결</li>
+      </ul>
+    </section>
+
+    <!-- MORE DETAIL -->
+    <section class="content-section">
+      <h2>More Detail</h2>
+      <p>
+        CRAFT 재현 과정과 처방전 Dataset 구축, 정량·정성 분석 결과는 Presentation에서 확인할 수 있습니다.
+      </p>
+
+      <a
+        class="detail-link"
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+      >
+        View Presentation ↗
+      </a>
+    </section>
+
+    <!-- BACK -->
+    <footer class="back-section">
+      <a href="../index.html#projects">← Back to Projects</a>
+    </footer>
+
+  </main>
+</body>
+</html>
