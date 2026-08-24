@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>스마트팜 Vision 기반 이상·병충해 탐지 및 AMR 연동 — Jae Moon Hwang</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=7" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html" class="name">Jae Moon Hwang</a>
+    <nav class="top-links">
+      <a href="../assets/resume.pdf" target="_blank">Resume</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/jmoonxai" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="simple-project">
+    <div class="simple-container">
+      <section class="project-intro">
+        <p class="eyebrow">PROJECT TITLE</p>
+        <h1>스마트팜 Vision 기반 이상·병충해 탐지 및 AMR 연동</h1>
+
+        <div class="meta-block">
+          <p class="eyebrow">TECHNOLOGIES</p>
+          <p class="meta-text">AI × Robotics · Computer Vision · Object Detection · ROS2 · Python</p>
+        </div>
+
+        <div class="meta-block">
+          <p class="eyebrow">ROLE</p>
+          <p class="meta-text">Detection 담당</p>
+        </div>
+
+        <div class="meta-block project-summary">
+          <p class="eyebrow">PROJECT</p>
+          <p>스마트팜을 순찰하는 AMR에서 토마토의 병충해·부패 상태와 침입자를 실시간으로 탐지하고, Detection 결과를 순찰·모니터링·추적 행동까지 연결한 AI-Robotics 시스템</p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Overview</h2>
+
+        <figure class="project-figure overview-figure">
+          <img src="../assets/images/smart-farm-overview.png" alt="Smart Farm Vision and AMR System Overview" />
+        </figure>
+
+        <p>
+          스마트팜을 순찰하는 AMR에 Computer Vision을 적용해
+          <strong>토마토의 병충해·부패 상태와 침입자를 실시간으로 탐지</strong>하고,
+          탐지 결과를 관리자 모니터링과 AMR의 순찰·추적 행동에 활용하는 시스템을 구현했습니다.
+        </p>
+
+        <p>
+          공개 데이터 기반 모델을 실제 Web Cam 환경에 적용하며 발생한 Domain Shift를 분석하고,
+          실제 운영 환경의 데이터를 추가해 Detection 성능을 개선했습니다.
+          또한 ROS2 기반 Vision Pipeline을 조정해
+          <strong>AI 추론 결과가 주행 중에도 안정적으로 Robot Action까지 연결되도록 통합</strong>했습니다.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Problem</h2>
+
+        <figure class="project-figure image-slot">
+          <img src="../assets/images/smart-farm-problem.png" alt="Smart Farm Vision Detection and AMR Operation" />
+        </figure>
+
+        <p>
+          스마트팜을 순찰하는 AMR이 <strong>토마토의 병충해·부패 상태와 침입자를 실시간으로 탐지</strong>하고,
+          이를 순찰·추적 및 관리자 모니터링에 활용할 수 있는 시스템을 구현했습니다.
+        </p>
+
+        <p>
+          초기 테스트에서는 공개 데이터와 실제 Web Cam 환경의 차이로 탐지 성능이 저하됐으며,
+          로봇 주행 중에는 탐지 결과와 이미지가 서버에 안정적으로 전달되지 않는 문제가 발생했습니다.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Analyze</h2>
+
+        <div class="text-group">
+          <h3>Vision</h3>
+          <p>
+            여러 YOLO 계열 모델을 비교한 결과, AMR에서 실시간으로 동작하기 위해서는
+            단순 정확도보다 <strong>탐지 성능과 추론 속도의 균형</strong>이 중요하다고 판단했습니다.
+          </p>
+          <p>
+            또한 Kaggle 데이터와 실제 Web Cam 환경 사이에 조명·각도·해상도·객체 크기 차이가 존재해
+            <strong>Domain Shift</strong>가 발생했고, 빨간색 영역이나 사람 얼굴과 같은 유사 객체를 토마토로
+            잘못 탐지하는 사례를 통해 <strong>실제 환경의 Negative / Background 데이터가 부족</strong>함을 확인했습니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h3>Robot Integration</h3>
+          <p>로봇 주행 중에는 객체가 카메라에 노출되는 시간이 짧아 Detection과 이미지 저장이 간헐적으로 누락됐습니다.</p>
+          <p>
+            이를 Vision 모델 자체의 문제가 아니라
+            <strong>Camera 입력 주기, AMR 이동 속도, Server 저장 처리 간의 타이밍 문제</strong>로 분석했습니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Action</h2>
+
+        <div class="text-group">
+          <h3>1. Detection Model Selection</h3>
+
+          <figure class="project-figure image-slot">
+            <img src="../assets/images/smart-farm-model-comparison.png" alt="YOLO Model Comparison for Smart Farm Detection" />
+          </figure>
+
+          <p>YOLOv5 · v8 · v10 · v11 · v26의 Nano / Small 모델 7종을 동일한 기준으로 비교했습니다.</p>
+          <ul>
+            <li>mAP50</li>
+            <li>Precision</li>
+            <li>Recall</li>
+            <li>F1-score</li>
+            <li>Inference Speed</li>
+          </ul>
+          <p>정확도와 실시간성을 종합적으로 비교해 <strong>YOLOv8-n을 최종 Detection 모델로 선정</strong>했습니다.</p>
+        </div>
+
+        <div class="text-group">
+          <h3>2. Domain-specific Dataset Improvement</h3>
+          <p>
+            공개 데이터만으로는 실제 운영 환경을 충분히 반영하기 어렵다고 판단해,
+            <strong>실제 Web Cam 이미지를 직접 수집·라벨링하고 Fine-tuning</strong>했습니다.
+          </p>
+          <p>
+            또한 False Positive 사례를 기준으로 객체가 존재하지 않는 실제 Background 이미지
+            <strong>30장을 Negative Sample로 추가</strong>해 유사 객체를 잘못 탐지하는 문제에 대응했습니다.
+          </p>
+        </div>
+
+        <div class="text-group">
+          <h3>3. ROS2 Vision Pipeline 안정화</h3>
+          <p>주행 중 객체 노출 시간이 짧아 Detection 결과와 이미지 저장이 누락되는 문제를 해결하기 위해 다음과 같이 조정했습니다.</p>
+          <ul>
+            <li>ROS2 Image Publisher 주기 <strong>0.1s → 0.03s</strong> 조정</li>
+            <li>TurtleBot 이동 속도 감소</li>
+            <li>객체 노출 시간 및 Server 전송 Frame 확보</li>
+          </ul>
+          <p>이를 통해 <strong>주행 상황에서도 Vision 결과가 안정적으로 전달되도록 Pipeline을 조정</strong>했습니다.</p>
+        </div>
+
+        <div class="text-group">
+          <h3>4. AMR Tracking Integration</h3>
+          <p>
+            침입자 대응 시나리오에서는 Detection 결과에서 사람 객체만 선별하고
+            <strong>Confidence와 Bounding Box 정보를 활용하는 후처리 로직</strong>을 구현했습니다.
+          </p>
+          <p>
+            이를 AMR Tracking Module과 연결해 탐지 결과가 단순 Vision Output에서 끝나지 않고
+            <strong>실제 로봇의 추적 행동으로 이어지도록 통합</strong>했습니다.
+          </p>
+          <p class="inline-flow">Camera → Object Detection → Person Filtering → Tracking Command → AMR Tracking</p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Result</h2>
+
+        <div class="text-group">
+          <h3>Vision</h3>
+          <ul>
+            <li>YOLO 계열 7종을 비교해 <strong>정확도와 실시간성을 고려한 YOLOv8-n 선정</strong></li>
+            <li>최종 모델에서 <strong>mAP@50 99.46%, Precision 98.95%, Recall 99.57%, F1-score 99.26%</strong> 달성</li>
+            <li>실제 Web Cam 데이터와 Negative Sample을 반영해 <strong>운영 환경의 Domain Shift 및 유사 객체 오탐에 대응</strong></li>
+          </ul>
+        </div>
+
+        <div class="text-group">
+          <h3>System Integration</h3>
+          <ul>
+            <li>ROS2 Image Publisher 주기와 AMR 이동 속도를 조정해 <strong>주행 중 Detection 및 이미지 저장 안정성 개선</strong></li>
+            <li>Detection 결과를 침입자 Tracking Module과 연결해 <strong>Vision Perception → AMR Tracking Pipeline 구현</strong></li>
+            <li>AI 모델의 추론 결과를 실제 AMR의 <strong>순찰·탐지·추적 행동까지 연결</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section demo-section">
+        <h2>Demo</h2>
+        <video class="project-video" controls preload="metadata" playsinline>
+          <source src="../assets/videos/smart-farm-demo.mp4" type="video/mp4" />
+          브라우저가 video 태그를 지원하지 않습니다.
+        </video>
+      </section>
+
+      <section class="content-section more-detail-section">
+        <h2>More Detail</h2>
+        <p>Detection 모델 비교, 실제 환경 데이터 개선, ROS2 Vision Pipeline 안정화 및 AMR Tracking Integration의 상세 내용을 Presentation에서 확인할 수 있습니다.</p>
+        <a class="detail-link" href="YOUR_SMART_FARM_PPT_LINK" target="_blank" rel="noreferrer">View Presentation ↗</a>
+      </section>
+
+      <section class="back-section">
+        <a href="../index.html#projects">← Back to Projects</a>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
