@@ -218,9 +218,6 @@
           </figure>
           <p>
             실제 데이터 구축 비용을 줄이기 위해 기존 OCR 및 Entity Extraction 모델을 라벨링 보조 도구로 활용했습니다.
-          </p>
-          <pre class="flow-code">Detection → 글자 위치 자동 생성 → Recognition → Text 자동 입력 → Entity Extraction → Category 자동 예측</pre>
-          <p>
             사람이 처음부터 모든 정보를 입력하는 대신 모델 Prediction을 검수·수정하는 방식으로 전환해
             이미지 1장당 라벨링 시간을 <strong>40분 → 10분</strong>으로 단축했습니다.
           </p>
@@ -230,9 +227,7 @@
         <div class="action-step">
           <span class="action-label">DATASET V3</span>
           <h3>6. 실제 데이터 700장 추가 및 모델 고도화</h3>
-          <figure class="project-figure">
-            <img src="../assets/images/entity-extraction-dataset-v3.png" alt="Entity Extraction Dataset v3 improvement" />
-          </figure>
+ 
           <p>Human-in-the-loop 방식으로 실제 진단서 <strong>700장</strong>을 추가 구축했습니다.</p>
           <ul>
             <li>Real Data: 1,078장</li>
@@ -245,9 +240,7 @@
         <div class="action-step">
           <span class="action-label">ACTION 7</span>
           <h3>7. Multi-GPU Model Serving</h3>
-          <figure class="project-figure">
-            <img src="../assets/images/entity-extraction-multi-gpu.png" alt="NGINX and Gunicorn Multi-GPU serving architecture" />
-          </figure>
+  
           <p>
             최종 Entity Extraction 모델의 실제 서비스 적용을 위해
             <strong>NGINX + Gunicorn 기반 Multi-GPU 추론 환경</strong>을 구축했습니다.
@@ -262,9 +255,7 @@
 
       <section class="content-section">
         <h2>Result</h2>
-        <figure class="project-figure">
-          <img src="../assets/images/entity-extraction-result.png" alt="Entity Extraction model performance result" />
-        </figure>
+
         <div class="performance-table-wrap">
           <table class="performance-table" aria-label="Entity Extraction dataset performance">
             <thead>
@@ -285,9 +276,7 @@
         </div>
         <ul>
           <li>Entity Extraction F1-score 0.896으로 목표했던 약 90% 성능 달성</li>
-          <li>Synthetic Data의 한계를 분석하고 실제 데이터 중심으로 학습 전략 전환</li>
           <li>Human-in-the-loop Labeling Pipeline을 통해 이미지당 라벨링 시간 40분 → 10분, 작업시간 75% 절감</li>
-          <li>실제 진단서 데이터 700장을 추가해 Dataset v3 구축</li>
           <li>단일 Endpoint 요청을 2개 GPU로 분산하는 NGINX 기반 Multi-GPU 추론 환경 구축</li>
         </ul>
       </section>
