@@ -18,7 +18,7 @@
   />
 
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/project-simple.css?v=7" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=8" />
 
   <!-- Page-specific styles: shared project CSS를 변경하지 않고 OCR 페이지에만 적용 -->
   <style>
@@ -38,9 +38,28 @@
       margin: 0 auto;
     }
 
-    .ocr-project .project-summary {
-      margin-left: 0;
-      margin-right: 0;
+    .ocr-project .intro-block {
+      margin-bottom: 34px;
+    }
+
+    .ocr-project .intro-block:first-child {
+      margin-bottom: 36px;
+    }
+
+    .ocr-project .intro-block.project-block {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .ocr-project .intro-value {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.75;
+    }
+
+    .ocr-project .project-block .intro-value {
+      font-weight: 400;
     }
 
     .ocr-project .content-section ul {
@@ -158,6 +177,18 @@
       text-underline-offset: 4px;
     }
 
+    .detail-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .detail-links .detail-link {
+      margin-top: 0;
+    }
+
     .ocr-project .back-section {
       max-width: 720px;
       margin: 0 auto;
@@ -185,25 +216,26 @@
 
     <!-- PROJECT INTRO -->
     <header class="project-intro">
-      <p class="eyebrow">AI / OCR / DATA-CENTRIC AI</p>
-
-      <h1>Data-centric AI 기반 문자 인식 모델 성능 고도화</h1>
-
-      <div class="meta-block">
-        <p class="meta-text">2021.02 – 2021.07</p>
-        <p class="meta-text">Python · PyTorch · OCR · Data-centric AI · Computer Vision</p>
-        <p class="meta-text">Role. Project Leader / PM 1명, PL 1명, 팀원 2명</p>
+      <div class="intro-block">
+        <p class="eyebrow">PROJECT TITLE</p>
+        <h1>Data-centric AI 기반 문자 인식 모델 성능 고도화</h1>
       </div>
 
-      <div class="project-summary">
+      <div class="intro-block">
+        <p class="eyebrow">TECHNOLOGIES</p>
+        <p class="intro-value">Python · PyTorch · OCR · Data-centric AI · Computer Vision</p>
+      </div>
+
+      <div class="intro-block">
+        <p class="eyebrow">ROLE</p>
+        <p class="intro-value">Project Leader / PM 1명, PL 1명, 팀원 2명</p>
+      </div>
+
+      <div class="intro-block project-block">
         <p class="eyebrow">PROJECT</p>
-        <p>
+        <p class="intro-value">
           처방전 OCR의 실제 오류를 분석하고, 부족한 데이터 특성을 다음 Dataset에 반영하는
           Data-centric 학습 Cycle을 구축했습니다.
-        </p>
-        <p>
-          Dataset v1 → v2 → v3로 데이터를 단계적으로 재구성하며
-          의료 Domain Vocabulary, 한글 인식, Noise / Background 문제를 순차적으로 개선했습니다.
         </p>
       </div>
     </header>
@@ -420,14 +452,25 @@
         Dataset Version별 실험 과정과 정성적 Error Analysis 결과는 아래 Presentation에서 확인할 수 있습니다.
       </p>
 
-      <a
-        class="detail-link"
-        href="https://docs.google.com/presentation/d/e/2PACX-1vR-I4L0HUNq6rmiybSriE5HXLn93nFiYazZKdJtQ9vbwhYq906HzhDw2iXrR6Tnag/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.p7"
-        target="_blank"
-        rel="noreferrer"
-      >
-        View Presentation ↗
-      </a>
+      <div class="detail-links">
+        <a
+          class="detail-link"
+          href="https://docs.google.com/presentation/d/e/2PACX-1vR-I4L0HUNq6rmiybSriE5HXLn93nFiYazZKdJtQ9vbwhYq906HzhDw2iXrR6Tnag/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.p7"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Presentation ↗
+        </a>
+
+        <a
+          class="detail-link"
+          href="https://link.springer.com/article/10.1007/s10032-025-00525-x"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Paper ↗
+        </a>
+      </div>
     </section>
 
     <!-- BACK -->
