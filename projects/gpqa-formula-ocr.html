@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>GPQA Formula OCR Improvement — Jae Moon Hwang</title>
+  <meta
+    name="description"
+    content="GPQA Physics의 LaTeX 수식 추출을 위해 PyMuPDF와 Nougat를 비교하고 Layout 기반 수식 영역 추출로 OCR 오류율을 100%에서 16%까지 개선한 프로젝트."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=11" />
+
+  <style>
+    .gpqa-project {
+      color: #111;
+      text-align: left;
+    }
+
+    .gpqa-project .project-intro,
+    .gpqa-project .content-section,
+    .gpqa-project .back-section {
+      text-align: left;
+    }
+
+    .gpqa-project .project-intro {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .gpqa-project .intro-block {
+      margin-bottom: 34px;
+    }
+
+    .gpqa-project .intro-block:first-child {
+      margin-bottom: 36px;
+    }
+
+    .gpqa-project .intro-block.project-block {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .gpqa-project .intro-value {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.75;
+    }
+
+    .gpqa-project .project-block .intro-value {
+      font-weight: 400;
+    }
+
+    .gpqa-project .content-section ul {
+      display: block;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .gpqa-project .project-figure {
+      width: 100%;
+      margin: 32px 0 44px;
+    }
+
+    .gpqa-project .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .flow-code {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 28px 0 8px;
+      padding: 18px 20px;
+      background: #f7f7f7;
+      border-radius: 8px;
+      text-align: left;
+      overflow-x: auto;
+    }
+
+    .action-step {
+      margin-top: 56px;
+    }
+
+    .action-step:first-of-type {
+      margin-top: 30px;
+    }
+
+    .action-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 9px;
+      background: #111;
+      color: #fff;
+      border-radius: 4px;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .metric-inline {
+      margin: 20px 0 0;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.8;
+    }
+
+    .analysis-note {
+      margin-top: 22px;
+      padding-left: 16px;
+      border-left: 2px solid #111;
+    }
+
+    .performance-table-wrap {
+      width: 100%;
+      margin-top: 30px;
+      overflow-x: auto;
+    }
+
+    .performance-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      font-family: "Inter", "Noto Sans KR", sans-serif;
+      font-size: 14px;
+    }
+
+    .performance-table th,
+    .performance-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: right;
+    }
+
+    .performance-table th:first-child,
+    .performance-table td:first-child {
+      text-align: left;
+    }
+
+    .performance-table thead th {
+      color: #555;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .performance-table tbody tr:last-child {
+      font-weight: 700;
+    }
+
+    .result-highlight {
+      margin-top: 34px;
+      padding: 22px 24px;
+      background: #f7f7f7;
+      border-radius: 8px;
+    }
+
+    .result-highlight strong {
+      display: block;
+      margin-bottom: 5px;
+      font-family: "Inter", sans-serif;
+      font-size: 21px;
+      line-height: 1.4;
+    }
+
+    .detail-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .gpqa-project .back-section {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .flow-code {
+        padding: 16px;
+        font-size: 12px;
+      }
+
+      .action-step {
+        margin-top: 44px;
+      }
+
+      .result-highlight {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a href="../index.html" class="name">Jae Moon Hwang</a>
+
+    <nav class="top-links">
+      <a href="../assets/resume.pdf" target="_blank">Resume</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/jmoonxai" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="simple-project gpqa-project">
+    <div class="simple-container">
+
+      <!-- PROJECT INTRO -->
+      <section class="project-intro">
+        <div class="intro-block">
+          <p class="eyebrow">PROJECT TITLE</p>
+          <h1>GPQA 학습 데이터 구축을 위한 수식 OCR 모델 성능 고도화</h1>
+        </div>
+
+        <div class="intro-block">
+          <p class="eyebrow">TECHNOLOGIES</p>
+          <p class="intro-value">Python · OCR · Nougat · PyMuPDF · LaTeX · LLM Dataset</p>
+        </div>
+
+        <div class="intro-block">
+          <p class="eyebrow">ROLE</p>
+          <p class="intro-value">Individual Contributor / 1명 · 기여도 100%</p>
+        </div>
+
+        <div class="intro-block project-block">
+          <p class="eyebrow">PROJECT</p>
+          <p class="intro-value">
+            GPQA Physics의 LaTeX 수식을 정확하게 추출하기 위해 OCR Pipeline을 개선하고,
+            이를 기반으로 계산·추론 문제 중심의 LLM 학습 데이터셋을 구축했습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section class="content-section">
+        <h2>Overview</h2>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/gpqa-ocr-overview.png"
+            alt="GPQA Formula OCR project overview"
+          />
+        </figure>
+
+        <p>
+          기존 PDF Text Extraction 방식으로는 GPQA Physics의 복잡한 LaTeX 수식을
+          정확하게 복원하기 어려웠습니다.
+        </p>
+
+        <p>
+          PyMuPDF와 Nougat의 성능을 비교하고 Error Case를 분석한 뒤,
+          <strong>Layout 기반 수식 영역 추출 방식으로 입력 구조를 개선</strong>해
+          LLM 학습 데이터 구축에 활용 가능한 수준까지 수식 OCR 성능을 높였습니다.
+        </p>
+
+        <pre class="flow-code">PDF → Formula Region Extraction → Nougat OCR → LaTeX → LLM Training Dataset</pre>
+      </section>
+
+      <!-- PROBLEM -->
+      <section class="content-section">
+        <h2>Problem</h2>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/gpqa-ocr-problem.png"
+            alt="GPQA formula extraction problem"
+          />
+        </figure>
+
+        <p>
+          GPQA Physics 데이터에는 첨자, 특수기호, 다중 행 수식 등
+          구조가 복잡한 LaTeX 표현이 포함되어 있었습니다.
+        </p>
+
+        <p>
+          기존 PyMuPDF 기반 PDF Extraction에서는 수식 구조가 손실되거나
+          잘못된 Text로 변환되는 문제가 발생해,
+          <strong>LLM 학습 데이터로 활용할 수 있는 수준의 수식 품질을 확보하기 어려웠습니다.</strong>
+        </p>
+      </section>
+
+      <!-- ANALYZE -->
+      <section class="content-section">
+        <h2>Analyze</h2>
+
+        <p>
+          기존 PyMuPDF 방식과 Nougat 기반 OCR 결과를 비교하고,
+          수식별 Error Case를 정량·정성적으로 분석했습니다.
+        </p>
+
+        <p>
+          그 결과 모델 자체보다 다음 두 가지 요소가 성능에 큰 영향을 준다고 판단했습니다.
+        </p>
+
+        <ul>
+          <li>수식 외 Text와 Layout 정보가 함께 입력되는 문제</li>
+          <li>수식 길이와 크기에 비해 OCR 입력 영역과 Input Size가 적절하지 않은 문제</li>
+        </ul>
+
+        <div class="analysis-note">
+          <p>
+            모델을 다시 학습하기보다
+            <strong>수식 영역을 정확히 분리한 뒤 Nougat에 입력하는 Pipeline 개선</strong>을
+            핵심 방향으로 설정했습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- ACTION -->
+      <section class="content-section">
+        <h2>Action</h2>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 1</span>
+          <h3>1. Baseline &amp; Error Analysis</h3>
+
+          <p>
+            GPQA Physics의 수식을 대상으로 기존 PyMuPDF Extraction 결과와
+            Nougat 기반 OCR 결과를 비교했습니다.
+          </p>
+
+          <p>
+            수식 구조가 조금이라도 다르면 오류로 처리하는
+            <strong>Strict Exact Match 기준</strong>으로 평가해,
+            실제 학습 데이터 구축 관점에서 사용할 수 있는 수준인지 검증했습니다.
+          </p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 2</span>
+          <h3>2. Nougat 기반 Formula OCR Pipeline 적용</h3>
+
+          <figure class="project-figure">
+            <img
+              src="../assets/images/gpqa-ocr-nougat.png"
+              alt="Nougat Formula OCR pipeline"
+            />
+          </figure>
+
+          <p>
+            일반적인 PDF Text Extraction 대신
+            수식 및 문서 구조 복원에 특화된 Nougat를 적용해
+            LaTeX 수식 변환 성능을 개선했습니다.
+          </p>
+
+          <p>
+            초기 Nougat 적용만으로도 기존 방식 대비 오류를 크게 줄였지만,
+            긴 수식과 복잡한 Layout에서는 추가 오류가 남아 있었습니다.
+          </p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 3</span>
+          <h3>3. Layout 기반 수식 영역 추출</h3>
+
+          <figure class="project-figure">
+            <img
+              src="../assets/images/gpqa-ocr-layout.png"
+              alt="Layout based formula region extraction"
+            />
+          </figure>
+
+          <p>
+            Error Analysis 결과를 바탕으로
+            <strong>수식 영역만 Layout 기반으로 분리한 뒤 Nougat에 입력</strong>하는 방식으로
+            Pipeline을 개선했습니다.
+          </p>
+
+          <p>
+            불필요한 주변 Text와 Layout 영향을 줄이고,
+            OCR이 실제 수식 영역에 집중하도록 입력 구조를 재설계했습니다.
+          </p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 4</span>
+          <h3>4. Error Case 분석 및 후속 개선 방향 도출</h3>
+
+          <p>
+            잔여 오류를 분석해 다음 유형을 주요 실패 케이스로 정의했습니다.
+          </p>
+
+          <ul>
+            <li>긴 수식</li>
+            <li>Multi-line Equation</li>
+            <li>Subscript / Superscript</li>
+            <li>특수기호 및 복잡한 LaTeX 표현</li>
+          </ul>
+
+          <p>
+            이를 기반으로 Input Size 조정과 수식 유형별 처리 전략 등
+            후속 개선 방향을 도출했습니다.
+          </p>
+        </div>
+
+        <div class="action-step">
+          <span class="action-label">ACTION 5</span>
+          <h3>5. GPQA 기반 LLM 학습 데이터 구축</h3>
+
+          <p>
+            개선된 Formula OCR Pipeline으로 GPQA Physics의 수식을 LaTeX 형태로 추출하고,
+            계산·추론 문제 기반 <strong>LLM 학습 데이터셋 구축에 활용</strong>했습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- RESULT -->
+      <section class="content-section">
+        <h2>Result</h2>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/gpqa-ocr-result.png"
+            alt="GPQA Formula OCR performance result"
+          />
+        </figure>
+
+        <div class="performance-table-wrap">
+          <table class="performance-table" aria-label="Formula OCR performance comparison">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Error Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PyMuPDF</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td>Nougat</td>
+                <td>20%</td>
+              </tr>
+              <tr>
+                <td>Nougat + Layout Extraction</td>
+                <td>16%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="result-highlight">
+          <strong>Formula OCR Error Rate 100% → 16%</strong>
+          <span>Strict Exact Match 기준 오류율 84% 감소</span>
+        </div>
+
+        <ul>
+          <li>엄격한 Exact Match 기준에서 수식 인식 오류율 100% → 16%로 개선</li>
+          <li>GPQA Physics의 LaTeX 수식을 안정적으로 추출할 수 있는 LLM 학습 데이터 구축 Pipeline 확보</li>
+          <li>구축한 학습 데이터가 활용된 모델의 LLM Leaderboard 11B 이하 부문 세계 1위 달성에 기여</li>
+        </ul>
+      </section>
+
+      <!-- MORE DETAIL -->
+      <section class="content-section">
+        <h2>More Detail</h2>
+
+        <p>
+          프로젝트 성과와 관련된 자세한 내용은 아래 기사에서 확인할 수 있습니다.
+        </p>
+
+        <a
+          class="detail-link"
+          href="https://www.aitimes.com/news/articleView.html?idxno=165230"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View Article ↗
+        </a>
+      </section>
+
+      <!-- BACK -->
+      <section class="back-section">
+        <a href="../index.html#projects">← Back to Projects</a>
+      </section>
+
+    </div>
+  </main>
+</body>
+</html>
