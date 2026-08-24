@@ -68,6 +68,17 @@
       margin-right: 0;
     }
 
+    .ocr-project .project-figure {
+      width: 100%;
+      margin: 32px 0 44px;
+    }
+
+    .ocr-project .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .ocr-project .flow-code {
       display: block;
       width: 100%;
@@ -244,6 +255,13 @@
     <section class="content-section">
       <h2>Overview</h2>
 
+      <figure class="project-figure overview-figure">
+        <img
+          src="../assets/images/ocr-overview.png"
+          alt="Data-centric OCR project overview"
+        />
+      </figure>
+
       <p>
         문자 인식 모델의 성능을 높이기 위해 모델 Architecture 변경에만 집중하지 않고,
         모델의 Prediction Error를 다음 데이터 구축 과정으로 환류하는
@@ -256,6 +274,13 @@
     <!-- PROBLEM -->
     <section class="content-section">
       <h2>Problem</h2>
+
+      <figure class="project-figure">
+        <img
+          src="../assets/images/ocr-problem.png"
+          alt="Prescription OCR problem cases"
+        />
+      </figure>
 
       <p>
         처방전 문자 인식은 한글·영어·숫자·기호가 혼재하고,
@@ -313,6 +338,13 @@
         <span class="dataset-label">DATASET V1</span>
         <h3>2. Domain-specific Synthetic Dataset 구축</h3>
 
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-dataset-v1.png"
+            alt="Domain-specific synthetic dataset construction"
+          />
+        </figure>
+
         <p>
           처방전 문맥과 유사한 학습 데이터를 확보하기 위해
           네이버 건강백과와 약학정보원에서 의료·의약 관련 단어를 Crawling했습니다.
@@ -365,6 +397,13 @@
       <div class="dataset-step">
         <span class="dataset-label">DATASET V3</span>
         <h3>4. Text-in-the-Wild Dataset 추가</h3>
+
+        <figure class="project-figure">
+          <img
+            src="../assets/images/ocr-dataset-v3.png"
+            alt="Text-in-the-Wild dataset examples"
+          />
+        </figure>
 
         <p>
           Dataset v2에서 확인한 Noise와 Background 변화에 대한 취약성을 개선하기 위해
