@@ -26,7 +26,7 @@
 
 
     .focused-action-image {
-      max-width: 620px;
+      max-width: 500px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -165,12 +165,6 @@
 
         <div class="text-group">
           <h3>2. Mission &amp; System Architecture</h3>
-
-          <p>
-            전체 화재 대응 시나리오를 설계하고, Spot·AMR·Vision·Navigation·Manipulation의 역할과
-            데이터 흐름을 기준으로 전체 System Architecture를 정의했습니다.
-          </p>
-
           <figure class="project-figure">
             <img
               src="../assets/images/fire-response-architecture.png"
@@ -178,9 +172,21 @@
             />
             <figcaption>Mission Flow &amp; System Architecture</figcaption>
           </figure>
+          <p>
+            전체 화재 대응 시나리오를 설계하고, Spot·AMR·Vision·Navigation·Manipulation의 역할과
+            데이터 흐름을 기준으로 전체 System Architecture를 정의했습니다.
+          </p>
+
+
 
           <div class="text-group sub-group">
             <h4>Fire Detection &amp; Perception</h4>
+            <figure class="project-figure image-slot focused-action-image">
+              <img
+                src="../assets/images/fire-response-perception.png"
+                alt="Fire Detection and Perception"
+              />
+            </figure>
             <p>
               화재 및 발화점 정보를 인식하고 Robot이 사용할 수 있는 위치 정보를 생성합니다.
             </p>
@@ -191,16 +197,17 @@
               <li>Position Estimation</li>
             </ul>
 
-            <figure class="project-figure image-slot focused-action-image">
-              <img
-                src="../assets/images/fire-response-perception.png"
-                alt="Fire Detection and Perception"
-              />
-            </figure>
+
           </div>
 
           <div class="text-group sub-group">
             <h4>Multi-Robot Navigation</h4>
+            <figure class="project-figure image-slot">
+              <img
+                src="../assets/images/fire-response-navigation.png"
+                alt="Multi-Robot Navigation"
+              />
+            </figure>
             <p>
               Spot과 AMR이 각자의 Mission에 따라 이동하고 현장에서 합류합니다.
             </p>
@@ -212,16 +219,17 @@
               <li>Rendezvous</li>
             </ul>
 
-            <figure class="project-figure image-slot">
-              <img
-                src="../assets/images/fire-response-navigation.png"
-                alt="Multi-Robot Navigation"
-              />
-            </figure>
+
           </div>
 
           <div class="text-group sub-group">
             <h4>Manipulation &amp; Fire Response</h4>
+            <figure class="project-figure image-slot focused-action-image">
+              <img
+                src="../assets/images/fire-response-manipulation.png"
+                alt="Manipulation and Fire Response"
+              />
+            </figure>
             <p>
               현장에 도착한 Robot이 초기 대응에 필요한 Physical Action을 수행합니다.
             </p>
@@ -232,31 +240,12 @@
               <li>초기 진압 Action</li>
             </ul>
 
-            <figure class="project-figure image-slot focused-action-image">
-              <img
-                src="../assets/images/fire-response-manipulation.png"
-                alt="Manipulation and Fire Response"
-              />
-            </figure>
+
           </div>
         </div>
 
         <div class="text-group">
           <h3>3. Interface &amp; Integration Design</h3>
-
-          <p>
-            각 모듈을 독립적으로 개발하더라도 최종적으로 동일한 기준으로 연결될 수 있도록
-            <strong>개발 전에 Integration Rule을 정의</strong>했습니다.
-          </p>
-
-          <ul>
-            <li>ROS2 Topic / Service / Action</li>
-            <li>Message Format</li>
-            <li>Camera / Robot / Map Coordinate Frame</li>
-            <li>Mission / Robot State Transition</li>
-            <li>Task Start / Complete 조건</li>
-          </ul>
-
           <figure class="project-figure image-slot">
             <img
               src="../assets/images/fire-response-interface-01.png"
@@ -270,6 +259,18 @@
               alt="Interface and Integration Design Example 2"
             />
           </figure>
+          <p>
+            각 모듈을 독립적으로 개발하더라도 최종적으로 동일한 기준으로 연결될 수 있도록
+            <strong>개발 전에 Integration Rule을 정의</strong>했습니다.
+          </p>
+
+          <ul>
+            <li>ROS2 Topic / Service / Action</li>
+            <li>Message Format</li>
+            <li>Camera / Robot / Map Coordinate Frame</li>
+            <li>Mission / Robot State Transition</li>
+            <li>Task Start / Complete 조건</li>
+          </ul>
 
           <p>
             이후 <strong>단일 기능 → 모듈 간 연결 → Robot 간 연동 → End-to-End Mission</strong>
