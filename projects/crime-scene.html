@@ -124,9 +124,6 @@
       <section class="content-section">
         <h2>Problem</h2>
 
-
-
-
         <p>
           Vision에서는 객체 인식을
           <strong>Robot Grasp가 가능한 위치·방향 정보</strong>로 변환하고,
@@ -194,9 +191,21 @@
           </figure>
 
           <p>
-            일반적인 STT 평가에서는 CER과 같은 전사 정확도를 주로 사용하지만, 로봇 환경에서는 사용자의 발화를 최대한 정확하게 보존하는 것과 함께 행동에 필요한 핵심 정보가 유지되는지도 중요하다고 판단했습니다.
-            따라서 STT 모델은 원문 보존을 기본 목표로 두고, CER과 함께 Action, Object, Destination, Negation 등 핵심 정보의 보존 여부를 추가로 평가했습니다.
-            이후 LLM 단계에서는 STT 결과를 기반으로 동일 행동의 다양한 표현과 일부 인식 오류를 보정하고, 명령 정정·다중 객체·복합 명령 등을 검증하여 로봇이 실행할 수 있는 Structured Command로 정확하게 파싱하는 것을 목표로 했습니다.
+            일반적인 STT 평가에서는 CER과 같은 전사 정확도를 주로 사용하지만,
+            로봇 환경에서는 사용자의 발화를 최대한 정확하게 보존하는 것과 함께
+            <strong>행동에 필요한 핵심 정보가 유지되는지</strong>도 중요하다고 판단했습니다.
+          </p>
+
+          <p>
+            따라서 STT 모델은 <strong>원문 보존을 기본 목표</strong>로 두고,
+            CER과 함께 <strong>Action, Object, Destination, Negation 등 핵심 정보의 보존 여부</strong>를
+            추가로 평가했습니다.
+          </p>
+
+          <p>
+            이후 LLM 단계에서는 STT 결과를 기반으로 동일 행동의 다양한 표현과 일부 인식 오류를 보정하고,
+            명령 정정·다중 객체·복합 명령 등을 검증하여
+            <strong>로봇이 실행할 수 있는 Structured Command로 정확하게 파싱</strong>하는 것을 목표로 했습니다.
           </p>
         </div>
       </section>
@@ -337,9 +346,19 @@
 
         <div class="text-group">
           <h3>Vision</h3>
+
+          <figure class="project-figure image-slot">
+            <img
+              src="../assets/images/crime-scene-dataset-comparison.png"
+              alt="Dataset v1 and v2 Detection Performance Comparison"
+            />
+          </figure>
+
           <ul>
             <li>
-             Dataset v2에서 mAP50 0.994의 높은 탐지 성능을 유지하면서 Precision 0.967, Recall 0.997, F1 0.982로 개선되어 정량적 성능과 실제 탐지 안정성을 함께 향상
+              Dataset v2에서 <strong>mAP50 0.994</strong>의 높은 탐지 성능을 유지하면서
+              <strong>Precision 0.967, Recall 0.997, F1 0.982</strong>를 달성해
+              정량적 성능과 실제 탐지 안정성을 함께 개선
             </li>
             <li>
               실패 케이스 기반 데이터 보강을 통해
