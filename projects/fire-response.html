@@ -10,7 +10,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/project-simple.css?v=3" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=4" />
+
+  <style>
+    .image-slot {
+      margin: 34px 0 42px;
+    }
+
+    .image-slot img,
+    .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .two-column-image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+      margin: 30px 0 42px;
+      align-items: start;
+    }
+
+    .two-column-image-grid figure {
+      margin: 0;
+    }
+
+    .two-column-image-grid img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 700px) {
+      .two-column-image-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -52,7 +90,6 @@
 
       <section class="content-section">
         <h2>Overview</h2>
-        <!-- OVERVIEW IMAGE -->
         <figure class="project-figure overview-figure">
           <img
             src="../assets/images/fire-response-overview.png"
@@ -69,8 +106,6 @@
           개별 기능 구현에 앞서 요구사항을 로봇 기능 단위로 분해하고 구현 가능성을 검증한 뒤,
           이를 기반으로 <strong>Mission Flow, System Architecture, Interface를 선행 설계</strong>했습니다.
         </p>
-
-
       </section>
 
       <section class="content-section">
@@ -172,6 +207,13 @@
               <li>Object Detection</li>
               <li>Position Estimation</li>
             </ul>
+
+            <figure class="project-figure image-slot">
+              <img
+                src="../assets/images/fire-response-perception.png"
+                alt="Fire Detection and Perception"
+              />
+            </figure>
           </div>
 
           <div class="text-group sub-group">
@@ -186,6 +228,22 @@
               <li>Goal Navigation</li>
               <li>Rendezvous</li>
             </ul>
+
+            <div class="two-column-image-grid">
+              <figure>
+                <img
+                  src="../assets/images/fire-response-navigation-01.png"
+                  alt="Multi-Robot Navigation Example 1"
+                />
+              </figure>
+
+              <figure>
+                <img
+                  src="../assets/images/fire-response-navigation-02.png"
+                  alt="Multi-Robot Navigation Example 2"
+                />
+              </figure>
+            </div>
           </div>
 
           <div class="text-group sub-group">
@@ -218,6 +276,22 @@
             <li>Task Start / Complete 조건</li>
           </ul>
 
+          <div class="two-column-image-grid">
+            <figure>
+              <img
+                src="../assets/images/fire-response-interface-01.png"
+                alt="Interface and Integration Design Example 1"
+              />
+            </figure>
+
+            <figure>
+              <img
+                src="../assets/images/fire-response-interface-02.png"
+                alt="Interface and Integration Design Example 2"
+              />
+            </figure>
+          </div>
+
           <p>
             이후 <strong>단일 기능 → 모듈 간 연결 → Robot 간 연동 → End-to-End Mission</strong>
             순으로 단계적으로 통합했습니다.
@@ -249,27 +323,10 @@
 
       <section class="content-section demo-section">
         <h2>Demo</h2>
-         <!--
-        <div class="video-placeholder">
-          <span>DEMO VIDEO</span>
-        </div>
-         -->
-
         <video class="project-video" controls preload="metadata">
           <source src="../assets/videos/fire-response-demo.mp4" type="video/mp4" />
           브라우저가 video 태그를 지원하지 않습니다.
         </video>
-
-
-        <!-- YouTube 사용 예시
-        <div class="youtube-wrap">
-          <iframe
-            src="https://www.youtube.com/embed/VIDEO_ID"
-            title="Multi-Robot Fire Response System Demo"
-            allowfullscreen>
-          </iframe>
-        </div>
-        -->
       </section>
 
       <section class="content-section more-detail-section">
