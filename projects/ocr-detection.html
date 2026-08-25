@@ -319,9 +319,19 @@
       <h2>Analyze</h2>
 
       <p>
-        처방전은 일반 문서와 달리 처 / 방 / 전처럼 한 글자 단위로 분리된 텍스트가 빈번하게 등장했습니다. 
-        대부분의 Text Detection 모델이 단어 또는 Text Line 단위 검출을 중심으로 하는 반면, CRAFT는 Character Region을 학습하고 문자 간 연결 관계를 후처리해 Text Box를 생성하기 때문에 처방전의 문자 배치 특성에 적합하다고 판단했습니다.
-        이를 근거로 CRAFT를 개선 모델로 선정했지만, Naver Clova의 공식 학습 코드가 공개되지 않았고 공개된 비공식 구현체 역시 논문 수준의 성능을 재현하지 못하는 문제가 있었습니다.
+        처방전은 일반 문서와 달리
+        <strong>처 / 방 / 전처럼 한 글자 단위로 분리된 텍스트가 빈번하게 등장</strong>했습니다.
+      </p>
+
+      <p>
+        대부분의 Text Detection 모델이 단어 또는 Text Line 단위 검출을 중심으로 하는 반면,
+        CRAFT는 <strong>Character Region을 학습하고 문자 간 연결 관계를 후처리해 Text Box를 생성</strong>하기 때문에
+        처방전의 문자 배치 특성에 적합하다고 판단했습니다.
+      </p>
+
+      <p>
+        이를 근거로 CRAFT를 개선 모델로 선정했지만,
+        <strong>Naver Clova의 공식 학습 코드가 공개되지 않았고 공개된 비공식 구현체 역시 논문 수준의 성능을 재현하지 못하는 문제</strong>가 있었습니다.
       </p>
 
       <div class="performance-table-wrap">
@@ -353,7 +363,7 @@
 
       <p>
         논문, Official Repository, 비공식 구현체를 비교한 결과
-        성능 차이를 유발하는 핵심 구현 요소를 다음과 같이 좁혔습니다.
+        <strong>성능 차이를 유발하는 핵심 구현 요소</strong>를 다음과 같이 좁혔습니다.
       </p>
 
       <ul>
@@ -396,7 +406,7 @@
 
         <p>
           공식 Training Code가 존재하지 않아 CRAFT 논문과 공개 Repository를 기반으로
-          비공식 구현체를 분석하고 학습 Pipeline을 직접 재구성했습니다.
+          비공식 구현체를 분석하고 <strong>학습 Pipeline을 직접 재구성</strong>했습니다.
         </p>
 
         <ul>
@@ -406,12 +416,12 @@
         </ul>
 
         <p class="metric-inline">
-          Unofficial CRAFT F1-score: 0.751 → 0.852
+          <strong>Unofficial CRAFT F1-score: 0.751 → 0.852</strong>
         </p>
 
         <div class="analysis-note">
           <p>
-            Precision은 약 12%, Recall은 약 14% 향상되었고,
+            <strong>Precision은 약 12%, Recall은 약 14% 향상</strong>되었고,
             Official CRAFT의 F1 0.869에 근접한 수준까지 성능을 재현했습니다.
           </p>
         </div>
@@ -469,8 +479,8 @@
         </ul>
 
         <p>
-          실제 처방전 Dataset으로 Fine-tuning하여 작은 글자 미검출,
-          인접 문자 병합, 잘못된 세로 검출 등 기존 Error Case를 개선했습니다.
+          실제 처방전 Dataset으로 Fine-tuning하여
+          <strong>작은 글자 미검출, 인접 문자 병합, 잘못된 세로 검출 등 기존 Error Case를 개선</strong>했습니다.
         </p>
       </div>
     </section>
@@ -538,10 +548,10 @@
       </div>
 
       <ul>
-        <li>공식 Training Code가 없는 CRAFT를 논문 분석을 통해 직접 재현</li>
-        <li>ResNet50 Backbone과 Korean Synthetic Dataset 14만 장, 실제 처방전 130장 Annotation을 활용해 Domain-specific Detection 성능 개선</li>
-        <li>최종적으로 Naver OCR API보다 높은 Detection / Recognition F1-score 달성</li>
-        <li>재현한 모델을 기반으로 EasyOCR Open-source Contribution으로 연결</li>
+        <li><strong>공식 Training Code가 없는 CRAFT를 논문 분석을 통해 직접 재현</strong></li>
+        <li>ResNet50 Backbone과 Korean Synthetic Dataset 14만 장, 실제 처방전 130장 Annotation을 활용해 <strong>Domain-specific Detection 성능 개선</strong></li>
+        <li>최종적으로 <strong>Naver OCR API보다 높은 Detection / Recognition F1-score 달성</strong></li>
+        <li>재현한 모델을 기반으로 <strong>EasyOCR Open-source Contribution으로 연결</strong></li>
       </ul>
     </section>
 
