@@ -79,6 +79,12 @@
       height: auto;
     }
 
+    .ocr-project .overview-figure {
+      max-width: 67%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .ocr-project .flow-code {
       display: block;
       width: 100%;
@@ -206,6 +212,10 @@
     }
 
     @media (max-width: 640px) {
+      .ocr-project .overview-figure {
+        max-width: 100%;
+      }
+
       .ocr-project .flow-code {
         padding: 16px;
         font-size: 12px;
@@ -357,23 +367,37 @@
         </figure>
 
         <p>
-          처방전 문맥과 유사한 학습 데이터를 확보하기 위해
-          네이버 건강백과와 약학정보원에서 의료·의약 관련 단어를 Crawling했습니다.
+          처방전 문맥과 유사한 학습 데이터를 만들기 위해
+          <strong>TextRecognitionDataGenerator Open-source를 활용해 Synthetic Dataset을 구축</strong>했습니다.
         </p>
 
-        <p>
-          실제 처방전 Label의 글자 길이 Histogram을 분석하고,
-          구축한 단어 사전도 유사한 길이 분포를 갖도록 조정한 뒤 Synthetic Image를 생성했습니다.
-        </p>
+        <p><strong>Synthetic Dataset 생성</strong></p>
+        <ul>
+          <li>단어 사전에서 학습 단어 선정</li>
+          <li>한글·영어 Font 구성</li>
+          <li>선정된 단어와 Font를 기반으로 Synthetic Image 생성</li>
+        </ul>
 
-        <p class="metric-inline">
-          Precision 0.881 · Recall 0.857 · F1-score 0.869
-        </p>
+        <p><strong>Domain Vocabulary 확장</strong></p>
+        <ul>
+          <li>기존 단어 사전만으로는 처방전 Domain 반영에 한계</li>
+          <li><strong>네이버 건강백과·약학정보원에서 의학·의약 관련 단어 Crawling</strong></li>
+          <li>처방전과 관련성이 낮은 단어 제거</li>
+          <li>두 단어 조합 방식에서 <strong>한 단어 단위 생성 방식으로 변경</strong></li>
+        </ul>
+
+        <p><strong>Label 분포 반영</strong></p>
+        <ul>
+          <li>실제 처방전 Label의 글자 길이 Histogram 분석</li>
+          <li><strong>5글자 이하 Label의 비중이 높음</strong>을 확인</li>
+          <li>Synthetic Dataset의 단어 사전도 <strong>5글자 이하 단어 중심으로 구성</strong></li>
+        </ul>
 
         <div class="analysis-note">
           <p>
-            Open-source 대비 Precision은 향상됐지만 Recall 개선은 제한적이었고,
-            정성 분석에서 <strong>한글 Recognition 정확도가 여전히 낮은 문제</strong>를 확인했습니다.
+            Dataset v1을 적용한 뒤 Domain Vocabulary에 대한 인식은 개선됐지만,
+            정성 분석에서 <strong>한글 Character Recognition 성능이 여전히 낮은 문제</strong>가
+            남아 있음을 확인했습니다.
           </p>
         </div>
       </div>
@@ -383,24 +407,23 @@
         <h3>3. Large-scale Korean Print Dataset 추가</h3>
 
         <p>
-          Dataset v1에서 확인한 한글 인식 오류를 개선하기 위해
-          AI Hub에서 제공하는 <strong>인쇄체 Dataset 약 110만 장</strong>을 추가했습니다.
+          Dataset v1 적용 후 정성 분석에서
+          <strong>한글 Character Recognition 성능이 여전히 낮은 문제</strong>를 확인했습니다.
         </p>
 
-        <p>
-          대규모 한글 인쇄체 데이터를 학습에 포함하면서 한글 Recognition 성능이 개선되었고,
-          Precision과 Recall이 모두 상승했습니다.
-        </p>
-
-        <p class="metric-inline">
-          Precision 0.926 · Recall 0.904 · F1-score 0.915
-        </p>
+        <p><strong>Korean Character 데이터 보강</strong></p>
+        <ul>
+          <li>AI Hub의 <strong>한글 인쇄체 Dataset 약 110만 장</strong> 추가</li>
+          <li>다양한 한글 글자 형태와 인쇄체 표현을 대규모로 학습</li>
+          <li>기존 Domain-specific Synthetic Dataset과 함께 학습해 <strong>한글 Recognition 성능 보강</strong></li>
+        </ul>
 
         <div class="analysis-note">
           <p>
-            Dataset v1 대비 F1-score가 0.869 → 0.915로 향상됐지만,
-            추가 Error Analysis에서 <strong>Noise가 심한 이미지와 Watermark Background</strong>에 대한
-            취약성이 남아 있음을 확인했습니다.
+            대규모 한글 인쇄체 데이터를 추가한 결과 한글 인식 성능은 개선됐지만,
+            추가 Error Analysis에서
+            <strong>Noise가 심한 이미지와 Watermark 등 복잡한 Background가 포함된 처방전에서 Recognition 오류가 반복적으로 발생</strong>하는
+            문제를 확인했습니다.
           </p>
         </div>
       </div>
@@ -426,14 +449,10 @@
           Annotation Coordinate를 이용해 문자·단어 영역을 Crop하여 학습에 활용했습니다.
         </p>
 
-        <p class="metric-inline">
-          Precision 0.942 · Recall 0.926 · F1-score 0.934
-        </p>
-
         <div class="analysis-note">
           <p>
             Dataset v2에서 실패했던 Noise 및 Watermark 사례에 대해
-            정성적으로 Recognition 정확도가 개선되는 것을 확인했습니다.
+            <strong>정성적으로 Recognition 정확도가 개선</strong>되는 것을 확인했습니다.
           </p>
         </div>
       </div>
