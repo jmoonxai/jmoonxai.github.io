@@ -25,19 +25,33 @@
     .entity-project .intro-value { margin:0; font-size:16px; font-weight:600; line-height:1.75; }
     .entity-project .project-block .intro-value { font-weight:400; }
     .entity-project .contribution-impact {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
-      margin-top:8px;
+      display:block;
+      margin-top:0;
     }
     .entity-project .summary-panel {
-      padding:20px 22px;
-      background:#f7f7f7;
-      border-radius:8px;
+      width:100%;
+      box-sizing:border-box;
+      padding:0;
+      margin:0 0 34px;
+      background:transparent;
+      border-radius:0;
     }
-    .entity-project .summary-panel .eyebrow { margin-bottom:14px; }
-    .entity-project .summary-panel ol { margin:0; padding-left:20px; }
-    .entity-project .summary-panel li { margin-bottom:14px; line-height:1.75; }
+
+    .entity-project .summary-panel:last-child {
+      margin-bottom:0;
+    }
+    .entity-project .summary-panel .eyebrow { margin-bottom:10px; }
+    .entity-project .summary-panel ol {
+      margin:0;
+      padding-left:22px;
+      font-size:16px;
+      font-weight:400;
+      line-height:1.75;
+    }
+    .entity-project .summary-panel li {
+      margin-bottom:14px;
+      line-height:1.75;
+    }
     .entity-project .summary-panel li:last-child { margin-bottom:0; }
 
     .entity-project .content-section ul { display:block; margin-left:0; margin-right:0; }
@@ -70,11 +84,7 @@
     .detail-link { display:inline-block; margin-top:12px; font-size:15px; font-weight:600; text-decoration:underline; text-underline-offset:4px; }
     .entity-project .back-section { max-width:720px; margin:0 auto; }
     @media (max-width:640px) {
-      .entity-project .contribution-impact {
-        grid-template-columns:1fr;
-        gap:16px;
-      }
-      .entity-project .summary-panel { padding:18px; }
+      .entity-project .summary-panel { padding:0; }
       .entity-project .image-grid-2 {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -115,43 +125,28 @@
           <p class="intro-value">Project Leader / End-to-End Development</p>
         </div>
 
-        <div class="intro-block project-block">
+        <div class="intro-block project-block contribution-impact-block">
           <div class="contribution-impact">
             <div class="summary-panel">
-              <p class="eyebrow">CONTRIBUTION</p>
+              <p class="eyebrow">CONTRIBUTION &amp; IMPACT</p>
               <ol>
                 <li>
                   <strong>Entity Extraction 모델 개발 및 Data-centric 학습 Pipeline 구축</strong><br />
-                  LayoutXLM 기반 Entity Extraction 모델을 개발하고,
-                  모델 학습 → 평가 → Error Analysis → Dataset 재구축 Cycle을 반복해 성능을 지속적으로 개선했습니다.
+                  LayoutXLM 기반 모델을 개발하고
+                  <strong>학습 → 평가 → Error Analysis → Dataset 재구축</strong> Cycle을 반복해
+                  <strong>F1-score를 0.808 → 0.896으로 향상</strong>했습니다.
                 </li>
                 <li>
-                  <strong>Edge Case 중심 Dataset 구축 및 Human-in-the-loop Labeling Tool 개발</strong><br />
-                  모델이 잘 처리하지 못하는 희소 Entity·비정형 Layout을 분석해 Synthetic Data로 보강하고,
-                  OCR 및 Entity Extraction 모델의 Prediction을 활용한 Human-in-the-loop 라벨링 환경을 구축했습니다.
+                  <strong>Human-in-the-loop 기반 Dataset 구축 효율화</strong><br />
+                  희소 Entity와 비정형 Layout을 분석해 Synthetic Data를 보강하고,
+                  OCR 및 Entity Extraction Prediction을 라벨링 보조에 활용해
+                  <strong>이미지당 라벨링 시간을 40분 → 10분으로 단축</strong>했습니다.
                 </li>
                 <li>
-                  <strong>Multi-GPU AI Model Serving 환경 구축</strong><br />
-                  NGINX → Gunicorn → FastAPI 구조를 구성하고,
-                  하나의 Endpoint로 들어오는 요청을 여러 GPU의 Model Process로 분산 처리하는 추론 환경을 구축했습니다.
-                </li>
-              </ol>
-            </div>
-
-            <div class="summary-panel">
-              <p class="eyebrow">IMPACT</p>
-              <ol>
-                <li>
-                  <strong>Entity Extraction F1-score 0.808 → 0.896 향상</strong><br />
-                  Synthetic Data와 Real Data를 단계적으로 개선하며 진단서 Dataset에서 목표했던 약 90% 수준의 Entity Extraction 성능을 달성했습니다.
-                </li>
-                <li>
-                  <strong>라벨링 작업시간 75% 단축</strong><br />
-                  모델 Prediction을 라벨링 초안으로 활용해 이미지 1장당 약 40분이 소요되던 작업을 10분으로 단축했습니다.
-                </li>
-                <li>
-                  <strong>Multi-GPU 기반 서비스 추론 구조 구축</strong><br />
-                  단일 Endpoint로 수신된 요청을 2개 GPU의 Model Process로 분산 처리할 수 있는 서비스 구조를 구축했습니다.
+                  <strong>Multi-GPU Model Serving 환경 구축</strong><br />
+                  <strong>NGINX → Gunicorn → FastAPI</strong> 기반 추론 구조를 구성하고,
+                  단일 Endpoint 요청을
+                  <strong>2개 GPU Model Process로 분산 처리하는 서비스 환경을 구축</strong>했습니다.
                 </li>
               </ol>
             </div>
@@ -237,7 +232,7 @@
             병명·분류번호·환자성명·진단일·의료기관·수술명·수술일·소견 등을 포함한
             15개 Class의 학습 Dataset을 구축했습니다.
           </p>
-          
+          <p class="metric-inline">Precision 0.806 · Recall 0.809 · F1-score 0.808</p>
           <div class="analysis-note">
             <p>수술명 F1 0.526, 수술일 F1 0.455, 소견 F1 0.601로 희소 Entity와 Edge Case에 대한 성능 보강이 필요하다고 판단했습니다.</p>
           </div>
@@ -272,7 +267,7 @@
             <li>소견 Text 및 비정형 Layout 생성</li>
             <li>수술명·수술일 학습을 위한 수술확인서 Layout 추가</li>
           </ul>
-          
+          <p class="metric-inline">F1-score 0.808 → 0.838</p>
         </div>
 
         <div class="action-step">
@@ -315,7 +310,7 @@
             <li>Final Train Dataset: <strong>1,678장</strong></li>
           </ul>
 
-          
+          <p class="metric-inline">Precision 0.888 · Recall 0.904 · F1-score 0.896</p>
         </div>
 
         <div class="action-step">
