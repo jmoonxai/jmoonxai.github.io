@@ -4,8 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>스마트팜 Vision 기반 이상·병충해 탐지 및 AMR 연동 — Jae Moon Hwang</title>
+
+  <!-- Match Crime Scene project typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/project-simple.css?v=7" />
+  <link rel="stylesheet" href="../css/project-simple.css?v=8" />
+
+  <style>
+    /* Smart Farm project-only image layout */
+    .image-slot {
+      margin: 34px 0 42px;
+    }
+
+    .image-slot img,
+    .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Analyze: Kaggle vs Web Cam images */
+    .vision-image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 72px;
+      margin: 30px 0 34px;
+      align-items: start;
+    }
+
+    .vision-image-grid figure {
+      margin: 0;
+    }
+
+    .vision-image-grid img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 700px) {
+      .vision-image-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -53,7 +99,10 @@
         </p>
 
         <p>
-          공개 데이터 기반 모델을 실제 Web Cam 환경에 적용하며 발생한 Domain Shift를 분석하고, 실제 운영 환경의 데이터를 추가해 Detection 성능을 개선했습니다. 또한 ROS2 Image 전송 주기와 AMR 주행 조건을 조정해 주행 중 병충해 Detection 결과와 이미지가 누락 없이 안정적으로 수집·전송되도록 개선했습니다.
+          공개 데이터 기반 모델을 실제 Web Cam 환경에 적용하며 발생한 <strong>Domain Shift</strong>를 분석하고,
+          실제 운영 환경의 데이터를 추가해 <strong>Detection 성능을 개선</strong>했습니다.
+          또한 ROS2 Image 전송 주기와 AMR 주행 조건을 조정해
+          <strong>주행 중 병충해 Detection 결과와 이미지가 누락 없이 안정적으로 수집·전송되도록 개선</strong>했습니다.
         </p>
       </section>
 
@@ -65,9 +114,10 @@
         </figure> -->
 
         <p>
-        초기 모델은 Kaggle 공개 데이터셋에서는 높은 탐지 성능을 보였지만, 실제 Web Cam 환경에서는 성능이 저하되는 문제가 있었습니다.
-        또한 AMR 주행 중에는 일부 병충해 Detection 결과와 이미지가 서버에 안정적으로 전달되지 않는 문제가 발생했습니다.
-
+          초기 모델은 <strong>Kaggle 공개 데이터셋에서는 높은 탐지 성능</strong>을 보였지만,
+          <strong>실제 Web Cam 환경에서는 성능이 저하</strong>되는 문제가 있었습니다.
+          또한 AMR 주행 중에는
+          <strong>일부 병충해 Detection 결과와 이미지가 서버에 안정적으로 전달되지 않는 문제</strong>가 발생했습니다.
         </p>
       </section>
 
@@ -75,9 +125,39 @@
         <h2>Analyze</h2>
 
         <div class="text-group">
-            AMR에서 Vision 모델이 실시간으로 동작해야 하기 때문에, 모델 선정 시 단순 정확도뿐 아니라 탐지 성능과 추론 속도의 균형이 중요하다고 판단했습니다.
-            또한 Kaggle 데이터와 실제 Web Cam 환경 사이에 조명·각도·해상도·객체 크기 차이가 존재해 Domain Shift가 발생했고, 빨간색 영역이나 사람 얼굴과 같은 유사 객체를 토마토로 잘못 탐지하는 사례를 통해 실제 환경의 Negative / Background 데이터가 부족함을 확인했습니다.
-            주행 중 Detection 결과와 이미지가 일부 누락되는 문제는 모델 성능보다는 ROS2 Image 전송 주기와 AMR 주행 조건 간 Timing 문제의 영향이 크다고 분석했습니다.
+          <div class="vision-image-grid">
+            <figure>
+              <img
+                src="../assets/images/smart-farm-kaggle.png"
+                alt="Smart Farm Kaggle Dataset Example"
+              />
+            </figure>
+
+            <figure>
+              <img
+                src="../assets/images/smart-farm-webcam.png"
+                alt="Smart Farm Web Cam Environment Example"
+              />
+            </figure>
+          </div>
+
+          <p>
+            AMR에서 Vision 모델이 실시간으로 동작해야 하기 때문에,
+            모델 선정 시 단순 정확도뿐 아니라
+            <strong>탐지 성능과 추론 속도의 균형</strong>이 중요하다고 판단했습니다.
+          </p>
+
+          <p>
+            또한 Kaggle 데이터와 실제 Web Cam 환경 사이에 조명·각도·해상도·객체 크기 차이가 존재해
+            <strong>Domain Shift</strong>가 발생했고,
+            빨간색 영역이나 사람 얼굴과 같은 유사 객체를 토마토로 잘못 탐지하는 사례를 통해
+            <strong>실제 환경의 Negative / Background 데이터가 부족</strong>함을 확인했습니다.
+          </p>
+
+          <p>
+            주행 중 Detection 결과와 이미지가 일부 누락되는 문제는 모델 성능보다는
+            <strong>ROS2 Image 전송 주기와 AMR 주행 조건 간 Timing 문제</strong>의 영향이 크다고 분석했습니다.
+          </p>
         </div>
       </section>
 
@@ -87,8 +167,6 @@
         <div class="text-group">
           <h3>1. Detection Model Selection</h3>
 
-
-
           <p>YOLOv5 · v8 · v10 · v11 · v26의 Nano / Small 모델 7종을 동일한 기준으로 비교했습니다.</p>
           <ul>
             <li>mAP50</li>
@@ -97,7 +175,10 @@
             <li>F1-score</li>
             <li>Inference Speed</li>
           </ul>
-          <p>정확도와 실시간성을 종합적으로 비교해 <strong>YOLOv8-n을 최종 Detection 모델로 선정</strong>했습니다.</p>
+          <p>
+            정확도와 실시간성을 종합적으로 비교해
+            <strong>YOLOv8-n을 최종 Detection 모델로 선정</strong>했습니다.
+          </p>
         </div>
 
         <div class="text-group">
@@ -114,24 +195,40 @@
 
         <div class="text-group">
           <h3>3. ROS2 Vision Pipeline 안정화</h3>
-          <p>주행 중 객체 노출 시간이 짧아 Detection 결과와 이미지 저장이 누락되는 문제를 해결하기 위해 다음과 같이 조정했습니다.</p>
+          <p>
+            주행 중 객체 노출 시간이 짧아 Detection 결과와 이미지 저장이 누락되는 문제를 해결하기 위해
+            다음과 같이 조정했습니다.
+          </p>
           <ul>
             <li>ROS2 Image Publisher 주기 <strong>0.1s → 0.03s</strong> 조정</li>
             <li>TurtleBot 이동 속도 감소</li>
             <li>객체 노출 시간 및 Server 전송 Frame 확보</li>
           </ul>
-          <p>이를 통해 <strong>주행 상황에서도 Vision 결과가 안정적으로 전달되도록 Pipeline을 조정</strong>했습니다.</p>
+          <p>
+            이를 통해
+            <strong>주행 상황에서도 Vision 결과가 안정적으로 전달되도록 Pipeline을 조정</strong>했습니다.
+          </p>
         </div>
 
         <div class="text-group">
           <h3>4. AMR Tracking Integration</h3>
+
           <p>
-침입자 대응 시나리오에서는 별도의 추가 학습 없이 공개 사전학습 Detection 모델을 활용해 사람 객체를 탐지했습니다. Detection 결과에서 Person 클래스만 선별하고 Confidence와 Bounding Box 정보를 활용하는 후처리 로직을 구현했습니다.
-
-이후 해당 결과를 AMR Tracking Module과 연결해, Vision Output이 실제 로봇의 추적 행동으로 이어지도록 통합했습니다.
-
-Camera → Object Detection → Person Filtering → Tracking Command → AMR Tracking
+            침입자 대응 시나리오에서는 <strong>별도의 추가 학습 없이 공개 사전학습 Detection 모델을 활용</strong>해
+            사람 객체를 탐지했습니다.
+            Detection 결과에서 Person 클래스만 선별하고
+            <strong>Confidence와 Bounding Box 정보를 활용하는 후처리 로직</strong>을 구현했습니다.
           </p>
+
+          <p>
+            이후 해당 결과를 AMR Tracking Module과 연결해,
+            Vision Output이 <strong>실제 로봇의 추적 행동으로 이어지도록 통합</strong>했습니다.
+          </p>
+
+          <p>
+            Camera → Object Detection → Person Filtering → Tracking Command → AMR Tracking
+          </p>
+
           <p class="inline-flow">Camera → Object Detection → Person Filtering → Tracking Command → AMR Tracking</p>
         </div>
       </section>
@@ -141,7 +238,7 @@ Camera → Object Detection → Person Filtering → Tracking Command → AMR Tr
 
         <div class="text-group">
           <h3>Vision</h3>
-           <figure class="project-figure image-slot">
+          <figure class="project-figure image-slot">
             <img src="../assets/images/smart-farm-model-comparison.png" alt="YOLO Model Comparison for Smart Farm Detection" />
           </figure>
           <ul>
