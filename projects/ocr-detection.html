@@ -61,6 +61,22 @@
       font-weight: 400;
     }
 
+    .ocr-detection-project .contribution-impact-list {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+    }
+
+    .ocr-detection-project .contribution-impact-list li {
+      margin-bottom: 14px;
+    }
+
+    .ocr-detection-project .contribution-impact-list li:last-child {
+      margin-bottom: 0;
+    }
+
     .ocr-detection-project .content-section ul {
       display: block;
       margin-left: 0;
@@ -255,12 +271,12 @@
       </div>
 
       <div class="intro-block project-block">
-        <p class="eyebrow">PROJECT</p>
-        <p class="intro-value">
-          CRAFT 논문과 비공식 구현체를 분석해 학습 Pipeline을 재현하고,
-          한글 합성 데이터와 실제 처방전 데이터를 활용해 Detection 모델을
-          처방전 Domain에 맞게 고도화했습니다.
-        </p>
+        <p class="eyebrow">CONTRIBUTION &amp; IMPACT</p>
+        <ol class="contribution-impact-list">
+          <li><strong>공식 Training Code가 없는 CRAFT를 논문·Repository 분석을 통해 재현</strong></li>
+          <li><strong>ResNet50·한글 Synthetic Dataset 14만 장·실제 처방전 130장 Fine-tuning을 통해 OCR Recognition F1 0.970 달성</strong></li>
+          <li><strong>공동 개발한 Detection 모델이 EasyOCR Open-source Contribution으로 확장</strong></li>
+        </ol>
       </div>
     </header>
 
