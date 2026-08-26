@@ -152,6 +152,11 @@
       border-left: 2px solid #111;
     }
 
+    .stage-note {
+      margin-top: 42px;
+      margin-bottom: -18px;
+    }
+
     .performance-table-wrap {
       width: 100%;
       margin-top: 30px;
@@ -273,9 +278,18 @@
       <div class="intro-block project-block">
         <p class="eyebrow">CONTRIBUTION &amp; IMPACT</p>
         <ol class="contribution-impact-list">
-          <li>공식 Training Code가 없는 CRAFT를 <strong>논문·Repository 분석을 통해 재현</strong></li>
-          <li>ResNet50·한글 Synthetic Dataset 14만 장·실제 처방전 130장 Fine-tuning을 통해 <strong>OCR Recognition F1 0.970 달성</strong></li>
-          <li>공동 개발한 Detection 모델이 <strong>EasyOCR Open-source Contribution으로 확장</strong></li>
+          <li>
+            공식 Training Code가 없는 CRAFT를
+            <strong>논문·Repository 분석을 통해 재현</strong>
+          </li>
+          <li>
+            ResNet50·한글 Synthetic Dataset 14만 장·실제 처방전 130장 Fine-tuning을 통해
+            <strong>OCR Recognition F1 0.970 달성</strong>
+          </li>
+          <li>
+            공동 개발한 Detection 모델이
+            <strong>EasyOCR Open-source Contribution으로 확장</strong>
+          </li>
         </ol>
       </div>
     </header>
@@ -292,8 +306,9 @@
       </figure>
 
       <p>
-        기존 custom 모델 고도화 이후에도 OCR 성능 차이가 남아 있었고,
-        Error Analysis 결과 Detection 단계의 오류가 전체 OCR 성능을 제한하는 주요 병목임을 확인했습니다.
+        처방전 OCR의 Detection 성능을 높이기 위해
+        <strong>CRAFT 학습 Pipeline을 재현하고, ResNet50 Backbone·한글 Synthetic Dataset·실제 처방전 데이터를 활용해
+        모델을 Domain에 맞게 고도화</strong>했습니다.
       </p>
 
       <pre class="flow-code">CRAFT Reproduction → Architecture Improvement → Korean Synthetic Dataset → Prescription Fine-tuning</pre>
@@ -441,6 +456,14 @@
             Official CRAFT의 F1 0.869에 근접한 수준까지 성능을 재현했습니다.
           </p>
         </div>
+      </div>
+
+      <div class="analysis-note stage-note">
+        <p>
+          재현한 CRAFT를 기반으로,
+          <strong>Stage 1에서는 대규모 Synthetic Dataset으로 기본 문자 검출 능력을 학습하고,
+          Stage 2에서는 실제 처방전 데이터로 Domain Fine-tuning</strong>을 진행했습니다.
+        </p>
       </div>
 
       <div class="action-step">
