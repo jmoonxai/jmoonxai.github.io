@@ -211,9 +211,41 @@
       margin: 0 auto;
     }
 
+    .ocr-project .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      width: 100%;
+      margin: 32px 0 44px;
+    }
+
+    .ocr-project .overview-grid .overview-item {
+      margin: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #f7f7f7;
+    }
+
+    .ocr-project .overview-grid .overview-item img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #fff;
+    }
+
     @media (max-width: 640px) {
       .ocr-project .overview-figure {
         max-width: 100%;
+      }
+
+      .ocr-project .overview-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .ocr-project .overview-grid .overview-item img {
+        aspect-ratio: 4 / 3;
       }
 
       .ocr-project .flow-code {
@@ -275,12 +307,21 @@
     <section class="content-section">
       <h2>Overview</h2>
 
-      <figure class="project-figure overview-figure">
-        <img
-          src="../assets/images/ocr-overview.png"
-          alt="Data-centric OCR project overview"
-        />
-      </figure>
+      <div class="overview-grid" aria-label="Data-centric OCR project overview images">
+        <figure class="overview-item">
+          <img
+            src="../assets/images/ocr-overview-01.png"
+            alt="Data-centric OCR project overview 1"
+          />
+        </figure>
+
+        <figure class="overview-item">
+          <img
+            src="../assets/images/ocr-overview-02.png"
+            alt="Data-centric OCR project overview 2"
+          />
+        </figure>
+      </div>
 
       <p>
         처방전 OCR의 문자 인식 성능을 높이기 위해 모델 Architecture 변경에만 집중하지 않고,
