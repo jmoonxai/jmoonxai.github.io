@@ -7,7 +7,7 @@
   <title>GPQA Formula OCR Improvement — Jae Moon Hwang</title>
   <meta
     name="description"
-    content="GPQA Physics의 LaTeX 수식 추출을 위해 PyMuPDF와 Nougat를 비교하고 Layout 기반 수식 영역 추출로 OCR 오류율을 100%에서 16%까지 개선한 프로젝트."
+    content="GPQA Physics 데이터셋 구축을 위해 PyMuPDF와 Nougat를 비교하고 Layout 기반 수식 영역 추출로 OCR 오류율을 100%에서 16%까지 개선한 프로젝트."
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +59,22 @@
 
     .gpqa-project .project-block .intro-value {
       font-weight: 400;
+    }
+
+    .gpqa-project .contribution-impact-list {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+    }
+
+    .gpqa-project .contribution-impact-list li {
+      margin-bottom: 14px;
+    }
+
+    .gpqa-project .contribution-impact-list li:last-child {
+      margin-bottom: 0;
     }
 
     .gpqa-project .content-section ul {
@@ -256,11 +272,26 @@
         </div>
 
         <div class="intro-block project-block">
-          <p class="eyebrow">PROJECT</p>
-          <p class="intro-value">
-            GPQA Physics의 LaTeX 수식을 정확하게 추출하기 위해 OCR Pipeline을 개선하고,
-            이를 기반으로 계산·추론 문제 중심의 LLM 학습 데이터셋을 구축했습니다.
-          </p>
+          <p class="eyebrow">CONTRIBUTION &amp; IMPACT</p>
+          <ol class="contribution-impact-list">
+            <li>
+              <strong>GPQA Physics 수식 추출 Pipeline 개선</strong><br />
+              PyMuPDF와 Nougat의 Error Case를 비교·분석하고,
+              Layout 기반 Formula Region Extraction을 적용해 OCR 입력 구조를 개선했습니다.
+            </li>
+            <li>
+              <strong>Formula OCR Error Rate 100% → 16% 개선</strong><br />
+              Strict Exact Match 기준으로 수식 인식 오류율을 84% 감소시켜
+              GPQA Physics 데이터셋 구축에 활용 가능한 수준의 LaTeX 수식 품질을 확보했습니다.
+            </li>
+            <li>
+              <strong>LLM 학습 데이터 구축 Pipeline 및 Leaderboard 성과 기여</strong><br />
+              개선된 Formula OCR Pipeline을 기반으로
+              GPQA Physics의 계산·추론 문제를 LLM 학습 데이터로 변환하는 구축 Pipeline을 완성했고,
+              해당 Pipeline으로 구축된 데이터가 활용된 모델의
+              LLM Leaderboard 11B 이하 부문 세계 1위 달성에 기여했습니다.
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -276,17 +307,20 @@
         </figure>
 
         <p>
-          기존 PDF Text Extraction 방식으로는 GPQA Physics의 복잡한 LaTeX 수식을
-          정확하게 복원하기 어려웠습니다.
+          GPQA Physics 데이터셋을 구축하는 과정에서,
+          원본 PDF에 포함된 복잡한 수식을 학습 데이터로 활용할 수 있는
+          <strong>LaTeX 형태로 정확하게 추출</strong>해야 했습니다.
         </p>
 
         <p>
-          PyMuPDF와 Nougat의 성능을 비교하고 Error Case를 분석한 뒤,
-          <strong>Layout 기반 수식 영역 추출 방식으로 입력 구조를 개선</strong>해
-          LLM 학습 데이터 구축에 활용 가능한 수준까지 수식 OCR 성능을 높였습니다.
+          기존 PyMuPDF 기반 Text Extraction으로는 첨자·특수기호·다중 행 수식 등
+          복잡한 수식 구조가 제대로 보존되지 않았기 때문에,
+          PyMuPDF와 Nougat의 결과를 비교하고 Error Case를 분석했습니다.
+          이후 <strong>수식이 포함된 영역을 Layout 기반으로 먼저 추출한 뒤 Nougat OCR을 적용하는 방식으로 입력 구조를 개선</strong>해
+          GPQA Physics 데이터셋 구축에 활용할 수 있는 수준까지 수식 추출 품질을 높였습니다.
         </p>
 
-        <pre class="flow-code">PDF → Formula Region Extraction → Nougat OCR → LaTeX → LLM Training Dataset</pre>
+        <pre class="flow-code">PDF → Formula Region Extraction → Nougat OCR → LaTeX → GPQA Physics Dataset</pre>
       </section>
 
       <!-- PROBLEM -->
@@ -301,14 +335,16 @@
         </figure>
 
         <p>
-          GPQA Physics 데이터에는 첨자, 특수기호, 다중 행 수식 등
-          구조가 복잡한 LaTeX 표현이 포함되어 있었습니다.
+          GPQA Physics 데이터셋 구축을 위해 PDF에서 문제와 수식을 추출해야 했지만,
+          기존 PyMuPDF 기반 Text Extraction에서는
+          <strong>수식의 첨자·특수기호·행 구조가 손실되거나 잘못된 Text로 변환되는 오류</strong>가
+          반복적으로 발생했습니다.
         </p>
 
         <p>
-          기존 PyMuPDF 기반 PDF Extraction에서는 수식 구조가 손실되거나
-          잘못된 Text로 변환되는 문제가 발생해,
-          <strong>LLM 학습 데이터로 활용할 수 있는 수준의 수식 품질을 확보하기 어려웠습니다.</strong>
+          특히 Physics 문제에서는 수식 자체가 문제의 조건과 의미를 결정하기 때문에,
+          이러한 오류가 포함된 데이터는
+          <strong>원문 문제를 정확하게 보존하지 못해 학습 데이터로 활용하기 어려운 문제</strong>가 있었습니다.
         </p>
       </section>
 
@@ -355,7 +391,7 @@
           <p>
             수식 구조가 조금이라도 다르면 오류로 처리하는
             <strong>Strict Exact Match 기준</strong>으로 평가해,
-            실제 학습 데이터 구축 관점에서 사용할 수 있는 수준인지 검증했습니다.
+            실제 GPQA Physics 데이터셋 구축에 사용할 수 있는 수준인지 검증했습니다.
           </p>
         </div>
 
@@ -442,11 +478,12 @@
 
         <div class="action-step">
           <span class="action-label">ACTION 5</span>
-          <h3>5. GPQA 기반 LLM 학습 데이터 구축</h3>
+          <h3>5. GPQA 기반 LLM 학습 데이터 구축 Pipeline 완성</h3>
 
           <p>
-            개선된 Formula OCR Pipeline으로 GPQA Physics의 수식을 LaTeX 형태로 추출하고,
-            계산·추론 문제 기반 <strong>LLM 학습 데이터셋 구축에 활용</strong>했습니다.
+            개선된 Formula OCR Pipeline을 기반으로
+            GPQA Physics의 계산·추론 문제를
+            <strong>LLM 학습 데이터로 변환하는 구축 Pipeline을 완성</strong>했습니다.
           </p>
         </div>
       </section>
@@ -489,8 +526,8 @@
 
         <ul>
           <li>엄격한 Exact Match 기준에서 수식 인식 오류율 100% → 16%로 개선</li>
-          <li>GPQA Physics의 LaTeX 수식을 안정적으로 추출할 수 있는 LLM 학습 데이터 구축 Pipeline 확보</li>
-          <li>구축한 학습 데이터가 활용된 모델의 LLM Leaderboard 11B 이하 부문 세계 1위 달성에 기여</li>
+          <li>GPQA Physics의 LaTeX 수식을 안정적으로 추출해 LLM 학습 데이터로 변환할 수 있는 구축 Pipeline 확보</li>
+          <li>해당 Pipeline으로 구축된 데이터가 활용된 모델의 LLM Leaderboard 11B 이하 부문 세계 1위 달성에 기여</li>
         </ul>
       </section>
 
