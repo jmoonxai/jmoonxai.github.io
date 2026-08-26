@@ -57,6 +57,124 @@
       background: #fff;
     }
 
+
+    /* Email popup */
+    .email-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.28);
+      z-index: 1000;
+    }
+
+    .email-modal.is-open {
+      display: flex;
+    }
+
+    .email-modal-card {
+      position: relative;
+      width: min(420px, 100%);
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 20px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .email-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      background: transparent;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .email-modal-icon {
+      width: 64px;
+      height: 64px;
+      margin: 6px auto 18px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+    }
+
+    .email-modal-card h3 {
+      margin: 0 0 18px;
+      font-size: 24px;
+    }
+
+    .email-copy-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border: 1px solid #d9dce1;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .email-address {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .email-copy-btn {
+      flex: 0 0 auto;
+      border: 1px solid #e1e4e8;
+      background: #f7f7f8;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .email-copy-btn:hover {
+      background: #efeff1;
+    }
+
+    .email-copy-status {
+      min-height: 22px;
+      margin: 10px 0 18px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .email-close-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 18px;
+      background: #1f2328;
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .email-close-btn:hover {
+      background: #111418;
+    }
+
   </style>
 
 </head>
@@ -274,11 +392,91 @@
         <p>AI Engineer focused on Robotics &amp; Physical AI</p>
         <div class="contact-icons">
           <a href="https://github.com/jmoonxai" target="_blank" rel="noreferrer" aria-label="GitHub" class="icon-button">GH</a>
-          <a href="mailto:YOUR_EMAIL@example.com" aria-label="Email" class="icon-button">✉</a>
+          <button type="button" id="emailTrigger" aria-label="Email" class="icon-button">✉</button>
           <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn" class="icon-button">in</a>
         </div>
       </div>
     </section>
   </main>
+
+  <div class="email-modal" id="emailModal" aria-hidden="true">
+    <div class="email-modal-card" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+      <button type="button" class="email-modal-close" id="emailModalClose" aria-label="Close">×</button>
+      <div class="email-modal-icon" aria-hidden="true">✉</div>
+      <h3 id="emailModalTitle">Email Address</h3>
+
+      <div class="email-copy-row">
+        <div class="email-address" id="emailAddress">jmoonx.ai@gmail.com</div>
+        <button type="button" class="email-copy-btn" id="emailCopyBtn">Copy</button>
+      </div>
+
+      <p class="email-copy-status" id="emailCopyStatus">Click “Copy” to copy the email address.</p>
+      <button type="button" class="email-close-btn" id="emailModalCloseBottom">Close</button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const modal = document.getElementById('emailModal');
+      const trigger = document.getElementById('emailTrigger');
+      const closeTop = document.getElementById('emailModalClose');
+      const closeBottom = document.getElementById('emailModalCloseBottom');
+      const copyBtn = document.getElementById('emailCopyBtn');
+      const copyStatus = document.getElementById('emailCopyStatus');
+      const email = 'jmoonx.ai@gmail.com';
+
+      const openModal = () => {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeTop.focus();
+      };
+
+      const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        trigger.focus();
+      };
+
+      trigger.addEventListener('click', openModal);
+      closeTop.addEventListener('click', closeModal);
+      closeBottom.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          copyBtn.textContent = 'Copied!';
+          copyStatus.textContent = 'Email address copied.';
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+            copyStatus.textContent = 'Click “Copy” to copy the email address.';
+          }, 1600);
+        } catch (error) {
+          const textarea = document.createElement('textarea');
+          textarea.value = email;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+          copyBtn.textContent = 'Copied!';
+          copyStatus.textContent = 'Email address copied.';
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
