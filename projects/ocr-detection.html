@@ -152,11 +152,6 @@
       border-left: 2px solid #111;
     }
 
-    .stage-note {
-      margin-top: 42px;
-      margin-bottom: -18px;
-    }
-
     .performance-table-wrap {
       width: 100%;
       margin-top: 30px;
@@ -298,9 +293,10 @@
     <section class="content-section">
       <h2>Overview</h2>
 
+      <!-- Overview 대표 이미지를 아래 파일명으로 추가하세요 -->
       <figure class="project-figure">
         <img
-          src="../assets/images/ocr-detection-overview.png"
+          src="../assets/images/ocr-detection-overview-new.png"
           alt="Prescription text detection project overview"
         />
       </figure>
@@ -317,6 +313,13 @@
     <!-- PROBLEM -->
     <section class="content-section">
       <h2>Problem</h2>
+
+      <figure class="project-figure">
+        <img
+          src="../assets/images/ocr-detection-overview.png"
+          alt="Prescription OCR detection overview and problem context"
+        />
+      </figure>
 
       <figure class="project-figure">
         <img
@@ -458,29 +461,20 @@
         </div>
       </div>
 
-      <div class="analysis-note stage-note">
-        <p>
-          재현한 CRAFT를 기반으로,
-          <strong>Stage 1에서는 대규모 Synthetic Dataset으로 기본 문자 검출 능력을 학습하고,
-          Stage 2에서는 실제 처방전 데이터로 Domain Fine-tuning</strong>을 진행했습니다.
-        </p>
-      </div>
-
       <div class="action-step">
         <span class="action-label">ACTION 2</span>
-        <h3>2. Stage 1 — Backbone Architecture 개선</h3>
+        <h3>2. Stage 1 — Backbone &amp; Korean Synthetic Dataset 개선</h3>
 
         <p>
-          CRAFT Stage 1의 Backbone으로 사용하던 VGG16을
-          <strong>ResNet50</strong>으로 변경해 Feature Representation을 강화했습니다.
+          재현한 CRAFT를 기반으로 기본 문자 검출 성능을 높이기 위해
+          <strong>Backbone과 학습 데이터를 함께 개선</strong>했습니다.
         </p>
 
-
-      </div>
-
-      <div class="action-step">
-        <span class="action-label">ACTION 3</span>
-        <h3>3. Stage 1 — Korean Synthetic Dataset 구축</h3>
+        <p><strong>Backbone Architecture 개선</strong></p>
+        <ul>
+          <li>CRAFT Stage 1의 Backbone을 <strong>VGG16 → ResNet50</strong>으로 변경</li>
+          <li>Feature Representation을 강화해 기본 Detection 성능 개선</li>
+        </ul>
 
         <figure class="project-figure">
           <img
@@ -489,22 +483,17 @@
           />
         </figure>
 
-        <p>
-          처방전에서 사용되는 한글·숫자·영어·기호를 충분히 학습할 수 있도록
-          <strong>한글 Synthetic Image 약 14만 장</strong>을 생성했습니다.
-        </p>
-
+        <p><strong>Korean Synthetic Dataset 구축</strong></p>
         <ul>
+          <li>처방전에서 사용되는 한글·숫자·영어·기호를 반영한 <strong>한글 Synthetic Image 약 14만 장</strong> 생성</li>
           <li>Font: 굴림, 바탕, 맑은 고딕, 나눔 고딕</li>
-          <li>기존 Recognition 모델에서 사용한 약·의료 관련 Vocabulary 활용</li>
-          <li>한글·숫자·영어·기호를 포함한 Synthetic Image 생성</li>
+          <li>기존 Recognition 모델에서 활용한 <strong>의료·약학 Vocabulary</strong> 적용</li>
         </ul>
-
       </div>
 
       <div class="action-step">
-        <span class="action-label">ACTION 4</span>
-        <h3>4. Stage 2 — Prescription-specific Dataset 구축 및 Fine-tuning</h3>
+        <span class="action-label">ACTION 3</span>
+        <h3>3. Stage 2 — Prescription-specific Dataset 구축 및 Fine-tuning</h3>
 
         <p>
           Weakly-Supervised Learning 단계에 실제 처방전 Domain을 반영하기 위해
