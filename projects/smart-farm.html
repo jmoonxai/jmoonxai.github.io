@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>스마트팜 Vision 기반 이상·병충해 탐지 및 AMR 연동 — Jae Moon Hwang</title>
 
-  <!-- Match Crime Scene project typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +13,6 @@
   <link rel="stylesheet" href="../css/project-simple.css?v=8" />
 
   <style>
-    /* Smart Farm project-only image layout */
     .image-slot {
       margin: 34px 0 42px;
     }
@@ -26,7 +24,6 @@
       height: auto;
     }
 
-    /* Analyze: Kaggle vs Web Cam images */
     .vision-image-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -43,6 +40,22 @@
       display: block;
       width: 100%;
       height: auto;
+    }
+
+    .contribution-impact-list {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+    }
+
+    .contribution-impact-list li {
+      margin-bottom: 14px;
+    }
+
+    .contribution-impact-list li:last-child {
+      margin-bottom: 0;
     }
 
     @media (max-width: 700px) {
@@ -80,8 +93,17 @@
         </div>
 
         <div class="meta-block project-summary">
-          <p class="eyebrow">PROJECT</p>
-          <p>스마트팜을 순찰하는 AMR에서 토마토의 병충해·부패 상태와 침입자를 실시간으로 탐지하고, Detection 결과를 순찰·모니터링·추적 행동까지 연결한 AI-Robotics 시스템</p>
+          <p class="eyebrow">CONTRIBUTION &amp; IMPACT</p>
+          <ol class="contribution-impact-list">
+            <li>
+              YOLO 계열 7종을 비교하고 Web Cam·Negative Sample을 반영해
+              <strong>실환경 Detection 성능을 개선, F1-score 99.26% 달성</strong>
+            </li>
+            <li>
+              Detection 결과를 ROS2 기반 AMR Tracking과 연결해
+              <strong>Vision Perception → Robot Action Pipeline 구현</strong>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -108,10 +130,6 @@
 
       <section class="content-section">
         <h2>Problem</h2>
-
-        <!-- <figure class="project-figure image-slot">
-          <img src="../assets/images/smart-farm-problem.png" alt="Smart Farm Vision Detection and AMR Operation" />
-        </figure> -->
 
         <p>
           초기 모델은 <strong>Kaggle 공개 데이터셋에서는 높은 탐지 성능</strong>을 보였지만,
@@ -225,10 +243,6 @@
             Vision Output이 <strong>실제 로봇의 추적 행동으로 이어지도록 통합</strong>했습니다.
           </p>
 
-          <p>
-            Camera → Object Detection → Person Filtering → Tracking Command → AMR Tracking
-          </p>
-
           <p class="inline-flow">Camera → Object Detection → Person Filtering → Tracking Command → AMR Tracking</p>
         </div>
       </section>
@@ -265,12 +279,6 @@
           브라우저가 video 태그를 지원하지 않습니다.
         </video>
       </section>
-
-      <!-- <section class="content-section more-detail-section">
-        <h2>More Detail</h2>
-        <p>Detection 모델 비교, 실제 환경 데이터 개선, ROS2 Vision Pipeline 안정화 및 AMR Tracking Integration의 상세 내용을 Presentation에서 확인할 수 있습니다.</p>
-        <a class="detail-link" href="YOUR_SMART_FARM_PPT_LINK" target="_blank" rel="noreferrer">View Presentation ↗</a>
-      </section> -->
 
       <section class="back-section">
         <a href="../index.html#projects">← Back to Projects</a>
