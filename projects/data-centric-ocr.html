@@ -283,9 +283,10 @@
       </figure>
 
       <p>
-        문자 인식 모델의 성능을 높이기 위해 모델 Architecture 변경에만 집중하지 않고,
-        모델의 Prediction Error를 다음 데이터 구축 과정으로 환류하는
-        <strong>Data-centric AI 접근</strong>을 적용했습니다.
+        처방전 OCR의 문자 인식 성능을 높이기 위해 모델 Architecture 변경에만 집중하지 않고,
+        Domain-specific Synthetic Dataset → Large-scale Korean Print Dataset → Text-in-the-Wild Dataset을 단계적으로 확장하고, 
+        각 단계의 Error Analysis 결과를 다음 Dataset 설계에 반영하는 <strong>Data-centric AI 기반 반복 학습 Pipeline</strong>을 구축했습니다.
+
       </p>
 
       <pre class="flow-code">Dataset 구축 → Model Training → Evaluation → Error Analysis → Dataset Reconstruction</pre>
