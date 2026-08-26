@@ -44,6 +44,22 @@
       height: auto;
     }
 
+    .contribution-impact-list {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+    }
+
+    .contribution-impact-list li {
+      margin-bottom: 14px;
+    }
+
+    .contribution-impact-list li:last-child {
+      margin-bottom: 0;
+    }
+
     @media (max-width: 700px) {
       .vision-image-grid {
         grid-template-columns: 1fr;
@@ -82,11 +98,21 @@
         </div>
 
         <div class="meta-block project-summary">
-          <p class="eyebrow">PROJECT</p>
-          <p>
-            음성 명령을 기반으로 증거물을 탐지하고 객체의 3D 위치·방향을 추정해
-            로봇이 직접 수집하는 AI-Robotics 시스템
-          </p>
+          <p class="eyebrow">CONTRIBUTION &amp; IMPACT</p>
+          <ol class="contribution-impact-list">
+            <li>
+              실패 케이스 기반 Detection Dataset 개선과 Segmentation·PCA·Depth 결합으로
+              <strong>Robot Grasp용 x, y, z, θ 산출 Pipeline 구현</strong>
+            </li>
+            <li>
+              도메인 특화 STT 평가로 6개 모델을 비교하고 LLM Command Parsing을 검증해
+              <strong>Structured Robot Command Pipeline 구축</strong>
+            </li>
+            <li>
+              Vision Object Pose와 Structured Command를 ROS2 Robot Control에 연결해
+              <strong>End-to-End 증거물 수집 Scenario 구현</strong>
+            </li>
+          </ol>
         </div>
       </section>
 
